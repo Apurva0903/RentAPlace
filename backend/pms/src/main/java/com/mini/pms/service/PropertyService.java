@@ -9,7 +9,9 @@ import java.security.Principal;
 
 public interface PropertyService {
 
-    Page<Property> findAll(Long memberId,String search, Double minPrice, Double maxPrice, String category, String type, String numberOfRoom, String location, Pageable pageable, Principal principal);
+    Page<Property> findAll(Long memberId, String search, Double minPrice, Double maxPrice, String category, String type,
+            String numberOfRoom, String location, java.util.List<String> facilities, Pageable pageable,
+            Principal principal);
 
     Property findById(long id);
 

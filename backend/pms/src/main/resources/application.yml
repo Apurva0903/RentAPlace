@@ -1,20 +1,21 @@
 spring:
   reset-password-url: http://localhost:3000/change-password
   application:
-    name: pms
+    name: rentaplace
   datasource:
-    username: ${POSTGRES_USER:postgres}
-    password: ${POSTGRES_PASSWORD:1234}
-    url: jdbc:postgresql://${POSTGRES_HOST:localhost:5432}/${POSTGRES_DB:pms-db}
+    url: jdbc:h2:mem:pms-db;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE
+    driverClassName: org.h2.Driver
+    username: sa
+    password: password
   jpa:
+    defer-datasource-initialization: true
     hibernate:
       ddl-auto: create-drop
     properties:
       hibernate:
-        dialect: org.hibernate.dialect.PostgreSQLDialect
+        dialect: org.hibernate.dialect.H2Dialect
         format_sql: true
     show-sql: true
-    defer-datasource-initialization: true
     generate-ddl: true
   sql:
     init:
@@ -45,5 +46,8 @@ management:
 
 jwt:
   secret: ${JWT_SECRET:1234}
+razorpay:
+  key-id: ${RAZORPAY_KEY_ID:rzp_test_SAuLIKBj4mgzRD}
+  key-secret: ${RAZORPAY_KEY_SECRET:BhtYoUPsb6zLGJJYIxiXMesb}
 mail:
   enabled: ${ENABLED:true}

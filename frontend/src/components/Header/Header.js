@@ -1,9 +1,8 @@
 import React from "react";
-import { Link } from "react-router-dom";
-import { useLocation } from "react-router-dom";
-import { Button, Dropdown } from "react-bootstrap";
+import { Dropdown, Button } from "react-bootstrap";
+import { Link, useLocation } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { FiUser, FiDatabase, FiPlus } from "react-icons/fi";
+import { FiUser, FiDatabase, FiHome, FiFileText, FiHeart, FiLogOut } from "react-icons/fi";
 import Login from "../Login";
 import {
   closeLoginModal,
@@ -16,106 +15,99 @@ import { logout } from "../../features/authSlice";
 
 const Header = ({ navLinks }) => {
   const { isAuthenticated, user } = useSelector((state) => state.auth);
-
-  const isAdmin = user?.roles
-    .map((role) => role.role === "Admin")
-    .includes(true);
-  const isOwner = user?.roles
-    .map((role) => role.role === "Owner")
-    .includes(true);
-  const isCustomer = user?.roles
-    .map((role) => role.role === "Customer")
-    .includes(true);
-
-  const { pathname } = useLocation();
-  const isActive = (path) => {
-    return "/" + path === pathname ? "active" : "";
-  };
+  const location = useLocation();
   const dispatch = useDispatch();
-  const { isLoginModalOpen, isRegisterModalOpen } = useSelector(
-    (state) => state.ui
-  );
+
+  const isAdmin = user?.roles?.some((r) => r.role === "Admin");
+  const isOwner = user?.roles?.some((r) => r.role === "Owner");
+  const isCustomer = user?.roles?.some((r) => r.role === "Customer");
+
+  const { isLoginModalOpen, isRegisterModalOpen } = useSelector((state) => state.ui);
 
   return (
-    <nav className="navbar navbar-expand-lg bg-primary">
-      <div className="container">
-        <Link className="navbar-brand" to="/">
-          PMS
-        </Link>
-        <div className="collapse navbar-collapse" id="navbarColor01">
-          <ul className="navbar-nav me-auto">
-            {navLinks.map((link, index) => (
-              <li className="nav-item" key={index}>
-                <Link className={`nav-link ${isActive}`} to={link.path}>
-                  {link.title}
-                </Link>
-              </li>
-            ))}
-          </ul>
-          <div className="d-flex gap-3">
-            {isAdmin && (
-              <Button variant="outline-light" href="/admin/dashboard">
-                <FiDatabase /> Admin
-              </Button>
-            )}
-            {isOwner && (
-              <Button variant="outline-light" href="/add-property">
-                <FiPlus /> Add Property
-              </Button>
-            )}
+    <>
+      <nav className="navbar navbar-expand-lg fixed-top">
+        <div className="container">
+          <Link className="navbar-brand d-flex align-items-center gap-2" to="/">
+            <FiHome size={28} />
+            <span>RentAPlace</span>
+          </Link>
 
-            {isAuthenticated ? (
-              <Dropdown>
-                <Dropdown.Toggle variant="light" id="dropdown-basic">
-                  <FiUser /> {user?.email}
-                </Dropdown.Toggle>
+          <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor01">
+            <span className="navbar-toggler-icon"></span>
+          </button>
 
-                <Dropdown.Menu>
-                  <Dropdown.Item href="/profile">Profile</Dropdown.Item>
-                  {isOwner && <Dropdown.Item href="/my-properties">My Properties</Dropdown.Item>}
-                  {isCustomer && <Dropdown.Item href="/my-offer">My Offers</Dropdown.Item>}
-                  <Dropdown.Item href="/favorite">Favorite</Dropdown.Item>
-                  <Dropdown.Item
-                    onClick={() => {
+          <div className="collapse navbar-collapse" id="navbarColor01">
+            <ul className="navbar-nav me-auto mb-2 mb-lg-0">
+              {navLinks.map((link, index) => (
+                <li className="nav-item" key={index}>
+                  <Link
+                    className={`nav-link ${location.pathname === link.path ? "active" : ""}`}
+                    to={link.path}
+                  >
+                    {link.title}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+
+            <div className="d-flex align-items-center gap-3">
+              {/* Post Property Button for Everyone (prompts login if not owner) */}
+              <Link
+                to={isOwner ? "/add-property" : "#"}
+                onClick={() => !isOwner && !isAuthenticated && dispatch(openLoginModal())}
+                className="btn btn-primary rounded-pill px-4"
+              >
+                Post Property <span className="badge bg-white text-primary ms-1">FREE</span>
+              </Link>
+
+              {isAuthenticated ? (
+                <Dropdown>
+                  <Dropdown.Toggle variant="white" id="dropdown-basic" className="d-flex align-items-center gap-2 border-0">
+                    <div className="bg-light rounded-circle p-2 text-primary">
+                      <FiUser size={20} />
+                    </div>
+                    <span className="fw-bold d-none d-md-block">{user?.name || user?.email?.split('@')[0]}</span>
+                  </Dropdown.Toggle>
+
+                  <Dropdown.Menu align="end" className="shadow-lg border-0 mt-2">
+                    <div className="px-3 py-2 border-bottom mb-2">
+                      <p className="mb-0 fw-bold">{user?.email}</p>
+                      <small className="text-muted">{user?.roles?.[0]?.role}</small>
+                    </div>
+
+                    {isAdmin && <Dropdown.Item href="/admin/dashboard"><FiDatabase className="me-2" /> Admin Dashboard</Dropdown.Item>}
+                    <Dropdown.Item href="/profile"><FiUser className="me-2" /> Profile</Dropdown.Item>
+                    {isOwner && <Dropdown.Item href="/my-properties"><FiHome className="me-2" /> My Properties</Dropdown.Item>}
+                    {isCustomer && <Dropdown.Item href="/my-offer"><FiFileText className="me-2" /> My Offers</Dropdown.Item>}
+                    <Dropdown.Item href="/favorite"><FiHeart className="me-2" /> Favorites</Dropdown.Item>
+                    <Dropdown.Divider />
+                    <Dropdown.Item onClick={() => {
                       dispatch(logout());
                       localStorage.clear();
                       window.location.href = "/";
-                      window.location.reload();
-
-                    }}
-                  >
-                    Logout
-                  </Dropdown.Item>
-                </Dropdown.Menu>
-              </Dropdown>
-            ) : (
-              <div className="d-flex gap-3">
-                <Button
-                  variant="outline-light"
-                  onClick={() => dispatch(openLoginModal())}
-                >
-                  Login
-                </Button>
-                <Button
-                  variant="outline-light"
-                  onClick={() => dispatch(openRegisterModal())}
-                >
-                  Register
-                </Button>
-              </div>
-            )}
+                    }} className="text-danger">
+                      <FiLogOut className="me-2" /> Logout
+                    </Dropdown.Item>
+                  </Dropdown.Menu>
+                </Dropdown>
+              ) : (
+                <div className="d-flex gap-2">
+                  <Button variant="outline-dark" className="rounded-pill px-4" onClick={() => dispatch(openLoginModal())}>
+                    Login
+                  </Button>
+                </div>
+              )}
+            </div>
           </div>
         </div>
-        <Register
-          show={isRegisterModalOpen}
-          handleClose={() => dispatch(closeRegisterModal())}
-        />
-        <Login
-          show={isLoginModalOpen}
-          handleClose={() => dispatch(closeLoginModal())}
-        />
-      </div>
-    </nav>
+      </nav>
+      {/* Spacer for fixed header */}
+      <div style={{ height: '80px' }}></div>
+
+      <Register show={isRegisterModalOpen} handleClose={() => dispatch(closeRegisterModal())} />
+      <Login show={isLoginModalOpen} handleClose={() => dispatch(closeLoginModal())} />
+    </>
   );
 };
 

@@ -395,7 +395,7 @@ export const Map = ({ set, center = defaultCenter }) => {
   );
 };
 
-const defaultCenter = [41.023248, -91.966827];
+const defaultCenter = [20.5937, 78.9629];
 const zoom = 15;
 
 function DisplayPosition({ map, setLatLong }) {

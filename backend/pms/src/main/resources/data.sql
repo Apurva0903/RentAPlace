@@ -1,355 +1,125 @@
-INSERT INTO member(
-                email,
-                name,
-                password,
-                created_at,
-                updated_at,
-                status
-        )
-VALUES (
-                'a@a.com',
-                'Mr.A',
-                '$2a$10$n32EL8n2AN/L40gbWMl3AOIyQNmXXNcaeqyBFrKnN50itVQNt91DW',
-                CURRENT_TIMESTAMP,
-                CURRENT_TIMESTAMP,
-                'ACTIVE'
-        ),
-        (
-                'b@b.com',
-                'Mr.B',
-                '$2a$10$n32EL8n2AN/L40gbWMl3AOIyQNmXXNcaeqyBFrKnN50itVQNt91DW',
-                CURRENT_TIMESTAMP,
-                CURRENT_TIMESTAMP,
-                'ACTIVE'
-        ),
-        (
-                'c@c.com',
-                'Mr.C',
-                '$2a$10$n32EL8n2AN/L40gbWMl3AOIyQNmXXNcaeqyBFrKnN50itVQNt91DW',
-                CURRENT_TIMESTAMP,
-                CURRENT_TIMESTAMP,
-                'ACTIVE'
-        ),
-        (
-                'vnath@miu.edu',
-                'Vishal Nath',
-                '$2a$10$n32EL8n2AN/L40gbWMl3AOIyQNmXXNcaeqyBFrKnN50itVQNt91DW',
-                CURRENT_TIMESTAMP,
-                CURRENT_TIMESTAMP,
-                'ACTIVE'
-        ),
-        (
-                'dengbunthai@gmail.com',
-                'Bunthai',
-                '$2a$10$n32EL8n2AN/L40gbWMl3AOIyQNmXXNcaeqyBFrKnN50itVQNt91DW',
-                CURRENT_TIMESTAMP,
-                CURRENT_TIMESTAMP,
-                'ACTIVE'
-        );
-INSERT INTO role(name, created_at, updated_at)
-VALUES ('Admin', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
-        ('Owner', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
-        ('Customer', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
-INSERT INTO member_role(member_id, role_id)
-VALUES (1, 1),
-        (2, 2),
-        (3, 3),
-        (4, 1);
-INSERT INTO property (
-                category,
-                created_at,
-                description,
-                latitude,
-                location,
-                longitude,
-                number_of_room,
-                offer_status,
-                price,
-                status,
-                sub_category,
-                title,
-                type,
-                updated_at,
-                owner_id
-        )
-VALUES (
-                'House',
-                '2024-02-07 00:29:48.576972',
-                'Nestled in the woods you will find this completely transformed  4 bedroom 3 bathroom home on just over 2 acres',
-                41.01594773977671,
-                '2574 243rd St, Fairfield, IA 52556',
-                -91.9687843322754,
-                4,
-                'AVAILABLE',
-                399900,
-                'ACTIVE',
-                'Multi Family',
-                'House for Sell in Iowa',
-                'RENT',
-                '2024-02-07 00:29:48.576972',
-                2
-        ),
-        (
-                'Land',
-                '2024-02-07 00:44:43.55343',
-                'Great Building Site Right off Hwy 34.  17.4 Acres Total, 11.34 Acres Tillable with Average CSR2 of 51.6 (4.6 Acres Currently in Cropland and 6.7 Acres in Hay).
-',
-                41.01303340479826,
-                '17A Tamarack Ave, Fairfield, IA 52556
-',
-                -91.96608066558838,
-                0,
-                'AVAILABLE',
-                156500,
-                'ACTIVE',
-                'Residential',
-                'Great Building Site Right off Hwy 34',
-                'RENT',
-                '2024-02-07 00:44:43.55343',
-                2
-        ),
-        (
-                'House',
-                '2024-02-07 01:04:03.030894',
-                'Welcome to 301 West Madison Avenue, a charming house nestled in the heart of Fairfield, IA. This delightful property offers a comfortable and inviting living space',
-                41.03449931565007,
-                '301 W Madison Ave, Fairfield, IA 52556',
-                -91.96273326873781,
-                2,
-                'AVAILABLE',
-                1000,
-                'ACTIVE',
-                'Multi Family',
-                '1,000',
-                'RENT',
-                '2024-02-07 01:04:03.030894',
-                2
-        );
+INSERT INTO member(email, name, password, status, created_at, updated_at) VALUES 
+('admin@rentaplace.com', 'Admin', '$2a$10$n32EL8n2AN/L40gbWMl3AOIyQNmXXNcaeqyBFrKnN50itVQNt91DW', 'ACTIVE', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+('owner@rentaplace.com', 'Owner', '$2a$10$n32EL8n2AN/L40gbWMl3AOIyQNmXXNcaeqyBFrKnN50itVQNt91DW', 'ACTIVE', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+('customer@rentaplace.com', 'John Doe', '$2a$10$n32EL8n2AN/L40gbWMl3AOIyQNmXXNcaeqyBFrKnN50itVQNt91DW', 'ACTIVE', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+
+INSERT INTO role(name, created_at, updated_at) VALUES 
+('Admin', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+('Owner', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+('Customer', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+
+INSERT INTO member_role(member_id, role_id) VALUES 
+(1, 1), (2, 2), (3, 3);
+
+-- Property 1: Luxury Villa in Goa
+INSERT INTO property (owner_id, title, description, price, location, latitude, longitude, category, sub_category, type, number_of_room, offer_status, status, created_at, updated_at) VALUES 
+(2, 'Seaside Luxury Villa', 'Experience the ultimate luxury in this 5-bedroom beachfront villa with private pool and garden.', 55000000, 'Candolim, Goa', 15.5164, 73.7667, 'House', 'Villa', 'SELL', 5, 'AVAILABLE', 'ACTIVE', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+
+-- Property 2: Penthouse in Mumbai
+INSERT INTO property (owner_id, title, description, price, location, latitude, longitude, category, sub_category, type, number_of_room, offer_status, status, created_at, updated_at) VALUES 
+(2, 'Skyline Penthouse', 'Breathtaking views of the Mumbai skyline from this 40th-floor penthouse. Ultra-modern amenities.', 85000000, 'Bandra West, Mumbai', 19.0596, 72.8295, 'House', 'Apartment', 'SELL', 4, 'AVAILABLE', 'ACTIVE', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+
+-- Property 3: Apartment in Bangalore (FIXED IMAGE)
+INSERT INTO property (owner_id, title, description, price, location, latitude, longitude, category, sub_category, type, number_of_room, offer_status, status, created_at, updated_at) VALUES 
+(2, 'Greenfield Apartment', 'Spacious 3BHK apartment in the heart of the IT hub. Walking distance to major tech parks.', 12500000, 'Whitefield, Bangalore', 12.9698, 77.7500, 'House', 'Apartment', 'SELL', 3, 'AVAILABLE', 'ACTIVE', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+
+-- Property 4: Studio in Delhi
+INSERT INTO property (owner_id, title, description, price, location, latitude, longitude, category, sub_category, type, number_of_room, offer_status, status, created_at, updated_at) VALUES 
+(2, 'Modern Studio Loft', 'Perfect for young professionals. Fully furnished studio with metro connectivity.', 4500000, 'Hauz Khas, New Delhi', 28.5494, 77.2001, 'House', 'Studio', 'RENT', 1, 'AVAILABLE', 'ACTIVE', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+
+-- Property 5: Farmhouse in Lonavala
+INSERT INTO property (owner_id, title, description, price, location, latitude, longitude, category, sub_category, type, number_of_room, offer_status, status, created_at, updated_at) VALUES 
+(2, 'Serene Farmhouse', 'Escape the city chaos in this peaceful farmhouse surrounded by lush greenery.', 35000000, 'Lonavala, Maharashtra', 18.7548, 73.4056, 'House', 'Farmhouse', 'SELL', 4, 'AVAILABLE', 'ACTIVE', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+
+-- Property 6: Villa in Kerala
+INSERT INTO property (owner_id, title, description, price, location, latitude, longitude, category, sub_category, type, number_of_room, offer_status, status, created_at, updated_at) VALUES 
+(2, 'Backwater Bliss Villa', 'Traditional Kerala architecture meets modern luxury on the banks of a serene backwater.', 42000000, 'Alleppey, Kerala', 9.4981, 76.3388, 'House', 'Villa', 'SELL', 4, 'AVAILABLE', 'ACTIVE', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+
+-- Property 7: Apartment in Hyderabad
+INSERT INTO property (owner_id, title, description, price, location, latitude, longitude, category, sub_category, type, number_of_room, offer_status, status, created_at, updated_at) VALUES 
+(2, 'Hitech City Heights', 'Premium 3BHK in Hitech City with club house and swimming pool access.', 15000000, 'Hitech City, Hyderabad', 17.4401, 78.3489, 'House', 'Apartment', 'SELL', 3, 'AVAILABLE', 'ACTIVE', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+
+-- Property 8: Cottage in Manali
+INSERT INTO property (owner_id, title, description, price, location, latitude, longitude, category, sub_category, type, number_of_room, offer_status, status, created_at, updated_at) VALUES 
+(2, 'Snow View Cottage', 'Charming wooden cottage with panoramic views of the Himalayas. Ideal vacation home.', 28000000, 'Manali, Himachal Pradesh', 32.2396, 77.1887, 'House', 'Cottage', 'SELL', 3, 'AVAILABLE', 'ACTIVE', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+
+-- Property 9: Flat in Pune
+INSERT INTO property (owner_id, title, description, price, location, latitude, longitude, category, sub_category, type, number_of_room, offer_status, status, created_at, updated_at) VALUES 
+(2, 'Koregaon Park Residence', 'Stylish 2BHK flat in the most happening neighborhood of Pune.', 11000000, 'Koregaon Park, Pune', 18.5362, 73.8940, 'House', 'Apartment', 'RENT', 2, 'AVAILABLE', 'ACTIVE', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+
+-- Property 10: Bungalow in Jaipur
+INSERT INTO property (owner_id, title, description, price, location, latitude, longitude, category, sub_category, type, number_of_room, offer_status, status, created_at, updated_at) VALUES 
+(2, 'Royal Heritage Bungalow', 'Experience royalty in this heritage-style bungalow with a large courtyard.', 60000000, 'C-Scheme, Jaipur', 26.9124, 75.7873, 'House', 'Bungalow', 'SELL', 6, 'AVAILABLE', 'ACTIVE', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+
+-- Property 11: Sea View Apartment in Chennai
+INSERT INTO property (owner_id, title, description, price, location, latitude, longitude, category, sub_category, type, number_of_room, offer_status, status, created_at, updated_at) VALUES 
+(2, 'Marina Bay View', 'Stunning sea view apartment on ECR road. Gated community with beach access.', 18000000, 'ECR, Chennai', 12.8996, 80.2520, 'House', 'Apartment', 'SELL', 3, 'AVAILABLE', 'ACTIVE', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+
+-- Property 12: Villa in Udaipur
+INSERT INTO property (owner_id, title, description, price, location, latitude, longitude, category, sub_category, type, number_of_room, offer_status, status, created_at, updated_at) VALUES 
+(2, 'Lake City Villa', 'Beautiful villa overlooking Lake Pichola. Peaceful and distinct.', 50000000, 'Udaipur, Rajasthan', 24.5854, 73.7125, 'House', 'Villa', 'SELL', 4, 'AVAILABLE', 'ACTIVE', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+
+-- Property 13: Service Apartment in Gurgaon
+INSERT INTO property (owner_id, title, description, price, location, latitude, longitude, category, sub_category, type, number_of_room, offer_status, status, created_at, updated_at) VALUES 
+(2, 'Cyber City Suites', 'Fully serviced luxury apartment for corporate stays.', 90000, 'Cyber City, Gurgaon', 28.4900, 77.0850, 'House', 'Apartment', 'RENT', 2, 'AVAILABLE', 'ACTIVE', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+
+-- Property 14: Coffee Estate Coorg
+INSERT INTO property (owner_id, title, description, price, location, latitude, longitude, category, sub_category, type, number_of_room, offer_status, status, created_at, updated_at) VALUES 
+(2, 'Misty Hills Estate', '5-acre coffee estate with a colonial bungalow.', 95000000, 'Madikeri, Coorg', 12.4244, 75.7382, 'House', 'Farmhouse', 'SELL', 5, 'AVAILABLE', 'ACTIVE', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+
+-- Property 15: Beach House in Pondicherry
+INSERT INTO property (owner_id, title, description, price, location, latitude, longitude, category, sub_category, type, number_of_room, offer_status, status, created_at, updated_at) VALUES 
+(2, 'French Colony House', 'Restored French colonial house in White Town, steps away from the promenade.', 40000000, 'White Town, Pondicherry', 11.9338, 79.8298, 'House', 'Villa', 'SELL', 3, 'AVAILABLE', 'ACTIVE', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
 
 
-INSERT INTO picture(
-    created_at,
-    key,
-    name,
-    size,
-    updated_at,
-    url,
-    property_id
-)
-VALUES (
-           '2024-02-07 00:28:41.77546',
-           '18ee8134-c056-4b62-ab9c-de5c5ed1a397',
-           '2de25a4be7b35b4e5bdc85dd1b90dd0b-cc_ft_1536.webp',
-           374928,
-           '2024-02-07 00:29:48.620212',
-           'http://localhost:8080/api/v1/files/dump/18ee8134-c056-4b62-ab9c-de5c5ed1a397/download',
-           1
-       ),
-       (
-           '2024-02-07 00:37:40.770564',
-           '7dbe103a-ef37-4d40-8514-8b1d305cadbc',
-           'istockphoto-1223671392-612x612.webp',
-           119848,
-           '2024-02-07 00:37:40.770564',
-           'http://localhost:8080/api/v1/files/dump/7dbe103a-ef37-4d40-8514-8b1d305cadbc/download',
-           2
-       ),
-       (
-           '2024-02-07 00:39:46.315914',
-           'cf9af819-c037-4a2f-9d0b-a5266752e1de',
-           '70eae94aac25d652feec326f6c956677-cc_ft_768.webp',
-           81462,
-           '2024-02-07 00:39:46.315914',
-           'http://localhost:8080/api/v1/files/dump/cf9af819-c037-4a2f-9d0b-a5266752e1de/download',
-           2
-       ),
-       (
-           '2024-02-07 00:43:24.242007',
-           '4ddaf5cb-d198-4c4f-bda3-166d0d1720e6',
-           '36a3818de08b1276e999d6644b898bc7-cc_ft_768.webp',
-           95240,
-           '2024-02-07 00:44:43.638679',
-           'http://localhost:8080/api/v1/files/dump/4ddaf5cb-d198-4c4f-bda3-166d0d1720e6/download',
-           2
-       ),
-       (
-           '2024-02-07 00:28:41.77546',
-           '255d0f6e-be87-4deb-a8d1-4640941c97e1',
-           '681b80dd92692119ba9b5877582ff7b3-cc_ft_768.webp',
-           133530,
-           '2024-02-07 00:29:48.619834',
-           'http://localhost:8080/api/v1/files/dump/255d0f6e-be87-4deb-a8d1-4640941c97e1/download',
-           1
-       ),
-       (
-           '2024-02-07 00:28:41.775458',
-           '216bde52-1811-4e57-a587-41bfc9cf00ab',
-           'a4da493447946d23c7dafae95f171ece-cc_ft_768.webp',
-           57856,
-           '2024-02-07 00:29:48.62001',
-           'http://localhost:8080/api/v1/files/dump/216bde52-1811-4e57-a587-41bfc9cf00ab/download',
-           1
-       ),
-       (
-           '2024-02-07 00:28:41.775458',
-           '3d56edd8-d846-498a-a7a0-86abf7f450b8',
-           'f9f46aa3b70545cd8462c399dd3e4cb2-cc_ft_1536.webp',
-           79694,
-           '2024-02-07 00:29:48.620092',
-           'http://localhost:8080/api/v1/files/dump/3d56edd8-d846-498a-a7a0-86abf7f450b8/download',
-           1
-       ),
-       (
-           '2024-02-07 00:37:40.77056',
-           'd940e58b-fea3-42c4-b8ad-ad0a6fd77d2a',
-           '36a3818de08b1276e999d6644b898bc7-cc_ft_768.webp',
-           95240,
-           '2024-02-07 00:37:40.77056',
-           'http://localhost:8080/api/v1/files/dump/d940e58b-fea3-42c4-b8ad-ad0a6fd77d2a/download',
-           2
-       ),
-       (
-           '2024-02-07 00:37:40.770559',
-           'ea5dd452-e0b9-4a5e-a47e-791a51b3f7c8',
-           '70eae94aac25d652feec326f6c956677-cc_ft_768.webp',
-           81462,
-           '2024-02-07 00:37:40.770559',
-           'http://localhost:8080/api/v1/files/dump/ea5dd452-e0b9-4a5e-a47e-791a51b3f7c8/download',
-           2
-       ),
-       (
-           '2024-02-07 00:37:40.770563',
-           'dfa22596-db7b-42ce-a421-95ddefbc9c9a',
-           '1c0500ddb4a2c8237f1b05bf4f6b14f0-cc_ft_1536.webp',
-           150908,
-           '2024-02-07 00:37:40.770563',
-           'http://localhost:8080/api/v1/files/dump/dfa22596-db7b-42ce-a421-95ddefbc9c9a/download',
-           2
-       ),
-       (
-           '2024-02-07 00:37:40.788933',
-           '52830c0e-246b-4b48-b6dc-0bda9a4444b8',
-           'd64f5b44f3f1edca650d6847c696652d-cc_ft_768.webp',
-           124432,
-           '2024-02-07 00:37:40.788933',
-           'http://localhost:8080/api/v1/files/dump/52830c0e-246b-4b48-b6dc-0bda9a4444b8/download',
-           2
-       ),
-       (
-           '2024-02-07 00:39:46.315386',
-           '591d9fa5-98e7-4a26-9feb-05e1d711e1bc',
-           '36a3818de08b1276e999d6644b898bc7-cc_ft_768.webp',
-           95240,
-           '2024-02-07 00:39:46.315386',
-           'http://localhost:8080/api/v1/files/dump/591d9fa5-98e7-4a26-9feb-05e1d711e1bc/download',
-           2
-       ),
-       (
-           '2024-02-07 00:39:46.315794',
-           'fa0f3c2e-83dd-40ed-8a57-151cdf8c7490',
-           '1c0500ddb4a2c8237f1b05bf4f6b14f0-cc_ft_1536.webp',
-           150908,
-           '2024-02-07 00:39:46.315794',
-           'http://localhost:8080/api/v1/files/dump/fa0f3c2e-83dd-40ed-8a57-151cdf8c7490/download',
-           2
-       ),
-       (
-           '2024-02-07 00:39:46.315384',
-           '48cf8e8a-31f9-45d4-8521-331d035ed6a9',
-           'd64f5b44f3f1edca650d6847c696652d-cc_ft_768.webp',
-           124432,
-           '2024-02-07 00:39:46.315384',
-           'http://localhost:8080/api/v1/files/dump/48cf8e8a-31f9-45d4-8521-331d035ed6a9/download',
-           2
-       ),
-       (
-           '2024-02-07 00:39:46.315524',
-           '7ec7814c-f1d4-40f3-8408-2c9b5ca475ce',
-           'istockphoto-1223671392-612x612.webp',
-           119848,
-           '2024-02-07 00:39:46.315524',
-           'http://localhost:8080/api/v1/files/dump/7ec7814c-f1d4-40f3-8408-2c9b5ca475ce/download',
-           2
-       ),
-       (
-           '2024-02-07 00:43:24.242005',
-           '20b85878-8ffd-442a-be27-e7b3d1dcc0f1',
-           '1c0500ddb4a2c8237f1b05bf4f6b14f0-cc_ft_1536.webp',
-           150908,
-           '2024-02-07 00:44:43.638803',
-           'http://localhost:8080/api/v1/files/dump/20b85878-8ffd-442a-be27-e7b3d1dcc0f1/download',
-           2
-       ),
-       (
-           '2024-02-07 00:43:24.242007',
-           'cb0ecd6f-0ff2-47e8-9a85-dca4b2d5a50f',
-           'd64f5b44f3f1edca650d6847c696652d-cc_ft_768.webp',
-           124432,
-           '2024-02-07 00:44:43.638862',
-           'http://localhost:8080/api/v1/files/dump/cb0ecd6f-0ff2-47e8-9a85-dca4b2d5a50f/download',
-           2
-       ),
-       (
-           '2024-02-07 00:43:24.242007',
-           '708d8753-0c03-4442-8ecd-15ef7ce229d6',
-           '70eae94aac25d652feec326f6c956677-cc_ft_768.webp',
-           81462,
-           '2024-02-07 00:44:43.638934',
-           'http://localhost:8080/api/v1/files/dump/708d8753-0c03-4442-8ecd-15ef7ce229d6/download',
-           2
-       ),
-       (
-           '2024-02-07 00:43:24.242005',
-           '5d4e5767-6ba6-49f4-8778-25314b25a7ad',
-           'istockphoto-1223671392-612x612.webp',
-           119848,
-           '2024-02-07 00:44:43.638987',
-           'http://localhost:8080/api/v1/files/dump/5d4e5767-6ba6-49f4-8778-25314b25a7ad/download',
-           2
-       ),
-       (
-           '2024-02-07 01:03:47.210358',
-           '0d832078-7c8c-4a93-bf2c-4f8c986d7bcc',
-           '71d6d546e79e698652c862e7febb6c84-cc_ft_768.webp',
-           104744,
-           '2024-02-07 01:04:03.062579',
-           'http://localhost:8080/api/v1/files/dump/0d832078-7c8c-4a93-bf2c-4f8c986d7bcc/download',
-           3
-       ),
-       (
-           '2024-02-07 01:03:47.210358',
-           '19e4d3b2-b4fe-4260-9082-30c0bbdc4bcd',
-           '478163394364d24a5c9f5e514143a987-cc_ft_768.webp',
-           47724,
-           '2024-02-07 01:04:03.063409',
-           'http://localhost:8080/api/v1/files/dump/19e4d3b2-b4fe-4260-9082-30c0bbdc4bcd/download',
-           3
-       ),
-       (
-           '2024-02-07 01:03:47.210358',
-           '26e2c78c-def2-4fc9-b34c-21c2eb8994ed',
-           'ffde7376d106d8c16964fdd2be7b4bc6-cc_ft_768.webp',
-           108156,
-           '2024-02-07 01:04:03.063517',
-           'http://localhost:8080/api/v1/files/dump/26e2c78c-def2-4fc9-b34c-21c2eb8994ed/download',
-           3
-       );
-INSERT INTO offer(
+-- Pictures (Using reliable Unsplash Image IDs)
 
-    created_at,
-    price,
-    remark,
-    status,
-    updated_at,
-    customer_id,
-    property_id
-)
-VALUES (
-           '2024-02-07 01:07:54.663563',
-           100000,
-           'Can i buy this land for 100000$',
-           'PENDING',
-           '2024-02-07 01:07:54.663563',
-           3,
-           2
-       );
+-- 1. Goa Villa
+INSERT INTO picture (property_id, url, name, size, image_key, created_at, updated_at) VALUES (1, 'https://images.unsplash.com/photo-1613977257363-707ba9348227?w=800&q=80', 'v1.jpg', 100, 'k1', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+-- 2. Mumbai Penthouse
+INSERT INTO picture (property_id, url, name, size, image_key, created_at, updated_at) VALUES (2, 'https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=800&q=80', 'p1.jpg', 100, 'k2', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+-- 3. Bangalore Apt (New Image)
+INSERT INTO picture (property_id, url, name, size, image_key, created_at, updated_at) VALUES (3, 'https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?w=800&q=80', 'b1.jpg', 100, 'k3', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+-- 4. Delhi Studio
+INSERT INTO picture (property_id, url, name, size, image_key, created_at, updated_at) VALUES (4, 'https://images.unsplash.com/photo-1556228453-efd6c1ff04f6?w=800&q=80', 'd1.jpg', 100, 'k4', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+-- 5. Lonavala Farm
+INSERT INTO picture (property_id, url, name, size, image_key, created_at, updated_at) VALUES (5, 'https://images.unsplash.com/photo-1580587771525-78b9dba3b91d?w=800&q=80', 'l1.jpg', 100, 'k5', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+-- 6. Kerala Villa
+INSERT INTO picture (property_id, url, name, size, image_key, created_at, updated_at) VALUES (6, 'https://images.unsplash.com/photo-1602343168117-bb8ffe3e2e9f?w=800&q=80', 'k1.jpg', 100, 'k6', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+-- 7. Hyderabad Apt
+INSERT INTO picture (property_id, url, name, size, image_key, created_at, updated_at) VALUES (7, 'https://images.unsplash.com/photo-1593696140826-c58b5414509f?w=800&q=80', 'h1.jpg', 100, 'k7', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+-- 8. Manali Cottage
+INSERT INTO picture (property_id, url, name, size, image_key, created_at, updated_at) VALUES (8, 'https://images.unsplash.com/photo-1449844908441-8829872d2607?w=800&q=80', 'm1.jpg', 100, 'k8', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+-- 9. Pune Flat
+INSERT INTO picture (property_id, url, name, size, image_key, created_at, updated_at) VALUES (9, 'https://images.unsplash.com/photo-1493809842364-78817add7ffb?w=800&q=80', 'pn1.jpg', 100, 'k9', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+-- 10. Jaipur Bungalow
+INSERT INTO picture (property_id, url, name, size, image_key, created_at, updated_at) VALUES (10, 'https://images.unsplash.com/photo-1628744448840-55bdb2497bd4?w=800&q=80', 'j1.jpg', 100, 'k10', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+-- 11. Chennai Apt
+INSERT INTO picture (property_id, url, name, size, image_key, created_at, updated_at) VALUES (11, 'https://images.unsplash.com/photo-1560184897-ae75f418493e?w=800&q=80', 'c1.jpg', 100, 'k11', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+-- 12. Udaipur Villa
+INSERT INTO picture (property_id, url, name, size, image_key, created_at, updated_at) VALUES (12, 'https://images.unsplash.com/photo-1510627489930-0c1b0dc58e85?w=800&q=80', 'u1.jpg', 100, 'k12', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+-- 13. Gurgaon Suite
+INSERT INTO picture (property_id, url, name, size, image_key, created_at, updated_at) VALUES (13, 'https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?w=800&q=80', 'g1.jpg', 100, 'k13', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+-- 14. Coorg Estate
+INSERT INTO picture (property_id, url, name, size, image_key, created_at, updated_at) VALUES (14, 'https://images.unsplash.com/photo-1572120360610-d971b9d7767c?w=800&q=80', 'co1.jpg', 100, 'k14', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+-- 15. Pondicherry House
+INSERT INTO picture (property_id, url, name, size, image_key, created_at, updated_at) VALUES (15, 'https://images.unsplash.com/photo-1600047509807-ba8f99d2cdde?w=800&q=80', 'pd1.jpg', 100, 'k15', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+
+
+-- Facilities
+INSERT INTO property_facilities (property_id, facilities) VALUES 
+(1, 'Pool'), (1, 'Garden'), (1, 'WiFi'),
+(2, 'Gym'), (2, 'Pool'), (2, 'Security'),
+(3, 'Gym'), (3, 'Parking'),
+(4, 'WiFi'), (4, 'Metro'),
+(5, 'Garden'), (5, 'Pool'),
+(6, 'Garden'), (6, 'Boating'),
+(7, 'Pool'), (7, 'Gym'),
+(8, 'Heater'), (8, 'View'),
+(9, 'Parking'), (9, 'WiFi'),
+(10, 'Garden'), (10, 'Courtyard'),
+(11, 'Pool'), (11, 'Beach'),
+(12, 'Pool'), (12, 'Lake View'),
+(13, 'WiFi'), (13, 'Housekeeping'),
+(14, 'Garden'), (14, 'Trekking'),
+(15, 'Garden'), (15, 'Beach');

@@ -41,7 +41,7 @@ public class Picture {
     private long size;
     private String url;
 
-    @Column(unique = true)
+    @Column(name = "image_key", unique = true)
     private String key;
 
     @ManyToOne(fetch = FetchType.EAGER)

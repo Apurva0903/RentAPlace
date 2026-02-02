@@ -29,30 +29,38 @@ public class PropertyServiceImpl implements PropertyService {
     private final PictureRepo picRepo;
 
     @Override
-    public Page<Property> findAll(Long memberId, String search, Double minPrice, Double maxPrice, String category, String type, String numberOfRoom, String location, Pageable pageable, Principal principal) {
+    public Page<Property> findAll(Long memberId, String search, Double minPrice, Double maxPrice, String category,
+            String type, String numberOfRoom, String location, java.util.List<String> facilities, Pageable pageable,
+            Principal principal) {
 
         Specification<Property> spec = Specification.allOf();
 
-        if (Objects.nonNull(memberId)) {
-            spec = spec.and((root, query, criteriaBuilder) -> criteriaBuilder.equal(root.get("owner").get("email"), principal.getName()));
+        if (Objects.nonNull(facilities) && !facilities.isEmpty()) {
+            spec = spec.and((root, query, criteriaBuilder) -> {
+                query.distinct(true);
+                return root.join("facilities").in(facilities);
+            });
         }
 
+        if (Objects.nonNull(memberId)) {
+            spec = spec.and((root, query, criteriaBuilder) -> criteriaBuilder.equal(root.get("owner").get("email"),
+                    principal.getName()));
+        }
 
         if (Objects.nonNull(search)) {
-            spec = spec.and((root, query, criteriaBuilder) ->
-                    criteriaBuilder.and(
-                            criteriaBuilder.like(
-                                    criteriaBuilder.lower(root.get("location")), "%" + search.toLowerCase() + "%")
-                    )
-            );
+            spec = spec.and((root, query, criteriaBuilder) -> criteriaBuilder.and(
+                    criteriaBuilder.like(
+                            criteriaBuilder.lower(root.get("location")), "%" + search.toLowerCase() + "%")));
         }
 
         if (Objects.nonNull(minPrice)) {
-            spec = spec.and((root, query, criteriaBuilder) -> criteriaBuilder.greaterThanOrEqualTo(root.get("price"), minPrice));
+            spec = spec.and((root, query, criteriaBuilder) -> criteriaBuilder.greaterThanOrEqualTo(root.get("price"),
+                    minPrice));
         }
 
         if (Objects.nonNull(maxPrice)) {
-            spec = spec.and((root, query, criteriaBuilder) -> criteriaBuilder.lessThanOrEqualTo(root.get("price"), maxPrice));
+            spec = spec.and(
+                    (root, query, criteriaBuilder) -> criteriaBuilder.lessThanOrEqualTo(root.get("price"), maxPrice));
         }
 
         if (Objects.nonNull(category)) {
@@ -64,21 +72,20 @@ public class PropertyServiceImpl implements PropertyService {
         }
 
         if (Objects.nonNull(numberOfRoom)) {
-            spec = spec.and((root, query, criteriaBuilder) -> criteriaBuilder.equal(root.get("numberOfRoom"), numberOfRoom));
+            spec = spec.and(
+                    (root, query, criteriaBuilder) -> criteriaBuilder.equal(root.get("numberOfRoom"), numberOfRoom));
         }
 
         if (Objects.nonNull(location)) {
             spec = spec.and((root, query, criteriaBuilder) -> criteriaBuilder.equal(root.get("location"), location));
         }
 
-
         var props = propertyRepo.findAll(spec, pageable);
 
         if (Objects.nonNull(principal)) {
             props = props.map(p -> {
                 p.setFavorite(p.getFavorites().stream().anyMatch(
-                        f -> f.getMember().getEmail().equals(principal.getName())
-                ));
+                        f -> f.getMember().getEmail().equals(principal.getName())));
                 return p;
             });
         }
@@ -88,7 +95,8 @@ public class PropertyServiceImpl implements PropertyService {
 
     @Override
     public Property findById(long id) {
-        return propertyRepo.findById(id).orElseThrow(() -> new PlatformException("Property not found", HttpStatus.NOT_FOUND));
+        return propertyRepo.findById(id)
+                .orElseThrow(() -> new PlatformException("Property not found", HttpStatus.NOT_FOUND));
     }
 
     @Override
@@ -130,7 +138,6 @@ public class PropertyServiceImpl implements PropertyService {
         prop.setNumberOfRoom(propertyRequest.getNumberOfRoom());
         prop.setLatitude(propertyRequest.getLatitude());
         prop.setLongitude(propertyRequest.getLongitude());
-
 
         var pics = picService.updateByProperty(prop, propertyRequest.getPictures());
         prop.setPictures(pics);

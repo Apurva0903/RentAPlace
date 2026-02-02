@@ -14,6 +14,9 @@ public interface OfferService {
     @Transactional(rollbackFor = DataAccessException.class)
     Offer submitOffer(Member customer, Property property, double price, String remark);
 
+    @Transactional(rollbackFor = DataAccessException.class)
+    Offer bookProperty(Member customer, Property property, double price);
+
     // Method to get all offers made by a specific customer
     Page<Offer> getAllOffersByCustomer(Member customer, Pageable pageable);
 
@@ -31,6 +34,8 @@ public interface OfferService {
 
     // Method to cancel an offer (if allowed based on 'contingency')
     void cancelOffer(Offer offer);
+
     Offer findById(long offerId);
+
     Page<Offer> getAllOffers(Pageable pageable);
 }

@@ -21,7 +21,7 @@ import { getCurrLocation, icon, iconURL } from "../utils/map";
 import { FaLocationDot } from "react-icons/fa6";
 import { useNavigate } from "react-router-dom";
 
-export const CATEGORY = ["House", "Apartment", "Condo","Land"];
+export const CATEGORY = ["House", "Apartment", "Condo", "Land"];
 export const LAND_TYPES = ["Residential", "Commercial", "Agricultural"];
 export const HOUSE_TYPES = ["Single Family", "Multi Family", "Townhouse"];
 export const APARTMENT_TYPES = ["Studio", "Loft", "Duplex"];
@@ -77,7 +77,7 @@ const AddProperty = () => {
 
   const propertyMutation = useMutation((data) => {
     api.post("properties", data).then((res) => {
-      navigate("/my-properties", {state: {message: "Property added successfully"}});
+      navigate("/my-properties", { state: { message: "Property added successfully" } });
     }).catch((error) => {
       console.log(error);
     });
@@ -337,10 +337,10 @@ export const Map = ({ set, center = defaultCenter }) => {
           <FaLocationDot size={30} color="#333" />
         </div>
         <MapContainer
-          center={center}
-          zoom={zoom}
+          center={[20.5937, 78.9629]}
+          zoom={5}
           scrollWheelZoom={false}
-          style={{ height: "400px", width: "100%" }}
+          style={{ height: "40vh", width: "100%" }}
           ref={setMap}
         >
           <TileLayer

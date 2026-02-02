@@ -19,7 +19,7 @@ import MyProperty from "../pages/MyProperty";
 import MyOffer from "../pages/MyOffer";
 import Contact from "../pages/Contact";
 import About from "../pages/About";
-import PricacyPilicy from "../pages/PricacyPilicy";
+import PrivacyPolicy from "../pages/PrivacyPolicy";
 import UpdateProperty from "../pages/UpdateProperty";
 const Router = () => {
   return (
@@ -36,9 +36,9 @@ const Router = () => {
         <Route path="my-properties" element={<MyProperty />} />
         <Route path="forgot-password" element={<ForgotPassword />} />
         <Route path="change-password" element={<ChangePassword />} />
-        <Route path="contact" element={< Contact/>} />
-        <Route path="about" element={< About/>} />
-        <Route path="privacy-policy" element={<PricacyPilicy />} />
+        <Route path="contact" element={< Contact />} />
+        <Route path="about" element={< About />} />
+        <Route path="privacy-policy" element={<PrivacyPolicy />} />
       </Route>
       <Route path="admin" element={<AdminLayout />}>
         <Route path="dashboard" element={<Dashboard />} />

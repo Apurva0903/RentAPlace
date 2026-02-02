@@ -1,5 +1,6 @@
 package com.mini.pms.restcontroller;
 
+import com.mini.pms.customexception.PlatformException;
 import com.mini.pms.entity.Member;
 import com.mini.pms.entity.Offer;
 import com.mini.pms.entity.Property;
@@ -37,9 +38,8 @@ public class OfferRestController {
     private final PropertyService propertyService;
 
     @Autowired
-    public OfferRestController
-            (OfferService offerService, MemberService memberService, PropertyService propertyService)
-    {
+    public OfferRestController(OfferService offerService, MemberService memberService,
+            PropertyService propertyService) {
         this.offerService = offerService;
         this.memberService = memberService;
         this.propertyService = propertyService;
@@ -47,21 +47,14 @@ public class OfferRestController {
 
     @GetMapping
     public ResponseEntity<PageResponse> getAllOffers(
-            @PageableDefault(
-                    size = 50,
-                    direction = Sort.Direction.DESC,
-                    sort = {"createdAt"}
-            )
-            Pageable pageable
-    ) {
+            @PageableDefault(size = 50, direction = Sort.Direction.DESC, sort = { "createdAt" }) Pageable pageable) {
         Page<Offer> offers = offerService.getAllOffers(pageable);
         return new ResponseEntity<>(new PageResponse(offers, OfferResponse.class), HttpStatus.OK);
     }
 
     @PostMapping("/submit")
-    public ResponseEntity<OfferResponse> submitOffer
-            (@Valid @RequestBody OfferSubmissionRequest request, Principal principal)
-    {
+    public ResponseEntity<OfferResponse> submitOffer(@Valid @RequestBody OfferSubmissionRequest request,
+            Principal principal) {
         try {
             Member customer = memberService.findByEmail(principal.getName());
             Property property = propertyService.findById(request.getPropertyId());
@@ -74,17 +67,28 @@ public class OfferRestController {
         }
     }
 
+    @PostMapping("/book")
+    public ResponseEntity<OfferResponse> bookProperty(@Valid @RequestBody OfferSubmissionRequest request,
+            Principal principal) {
+        try {
+            Member customer = memberService.findByEmail(principal.getName());
+            Property property = propertyService.findById(request.getPropertyId());
+            double price = request.getPrice();
+            // We use request.getPrice() as token amount here
+            Offer bookedOffer = offerService.bookProperty(customer, property, price);
+            return new ResponseEntity<>(Util.mapObj(bookedOffer, OfferResponse.class), HttpStatus.CREATED);
+        } catch (PlatformException e) {
+            throw e;
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
+        }
+    }
+
     @GetMapping("/customer")
     public ResponseEntity<PageResponse> getAllOffersByCustomer(
 
-            @PageableDefault(
-                    size = 50,
-                    direction = Sort.Direction.DESC,
-                    sort = {"createdAt"}
-            )
-            Pageable pageable,
-            Principal principal
-    ) {
+            @PageableDefault(size = 50, direction = Sort.Direction.DESC, sort = { "createdAt" }) Pageable pageable,
+            Principal principal) {
         try {
             Member customer = memberService.findByEmail(principal.getName());
             Page<Offer> offers = offerService.getAllOffersByCustomer(customer, pageable);
@@ -97,13 +101,7 @@ public class OfferRestController {
     @GetMapping("/property/{propertyId}")
     public ResponseEntity<PageResponse> getAllOffersForProperty(
             @PathVariable long propertyId,
-            @PageableDefault(
-                    size = 50,
-                    direction = Sort.Direction.DESC,
-                    sort = {"createdAt"}
-            )
-            Pageable pageable
-    ) {
+            @PageableDefault(size = 50, direction = Sort.Direction.DESC, sort = { "createdAt" }) Pageable pageable) {
         try {
             Property property = propertyService.findById(propertyId);
             Page<Offer> offers = offerService.getAllOffersForProperty(property, pageable);
@@ -117,13 +115,7 @@ public class OfferRestController {
     public ResponseEntity<PageResponse> getOffersForPropertyByStatus(
             @PathVariable long propertyId,
             @PathVariable OfferStatus status,
-            @PageableDefault(
-                    size = 50,
-                    direction = Sort.Direction.DESC,
-                    sort = {"createdAt"}
-            )
-            Pageable pageable
-    ) {
+            @PageableDefault(size = 50, direction = Sort.Direction.DESC, sort = { "createdAt" }) Pageable pageable) {
         try {
             Property property = propertyService.findById(propertyId);
             Page<Offer> offers = offerService.getOffersForPropertyByStatus(property, status, pageable);

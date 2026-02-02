@@ -1,131 +1,53 @@
-<h1 align="center">
- Mini Property Management System
-</h1>
+# RentAPlace - Premium Property Management System
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
+RentAPlace is a full-stack real estate platform built with Spring Boot (Java 21) and React.js. It allows users to list, browse, and book properties with a secure Razorpay token system.
 
-<p align="center">Property management system website using React js and Spring.</p>
-<p align="center"> 
-  <a href="https://github.com/vicheanath/mini-pms/actions/workflows/test.yml">
-    <img src="https://github.com/vicheanath/mini-pms/actions/workflows/test.yml/badge.svg" />
-  </a>
-  <a href="https://github.com/vicheanath/mini-pms/actions/workflows/build-push-docker.yml">
-    <img src="https://github.com/vicheanath/mini-pms/actions/workflows/build-push-docker.yml/badge.svg" />
-  </a>
-</p>
+## 🚀 Features
+- **User Roles**: Admin, Owner, Customer.
+- **Premium UI**: Modern responsive design with animations.
+- **Secure Payments**: Razorpay integration for token booking.
+- **Verified Data**: 15+ Premium properties seeded in database.
+- **Interactive Maps**: Leaflet integration for property location.
 
+## 🛠️ Tech Stack
+-   **Backend**: Java 21, Spring Boot 3.2, Spring Security, H2 Database.
+-   **Frontend**: React 18, Bootstrap 5, Redux Toolkit, React Query.
 
-## Project Description
-This is a mini property management system that allows users to create, read, update and delete properties. It is built with Spring Boot and React.
+## 📦 Build & Deployment
 
+### prerequisites
+-   Java 21 verified.
+-   Node.js 18+.
 
-## Technologies Used
-- Backend
-  - Spring Boot
-  - React
-  - PostgreSQL
-  - Maven
-  - Lombok
-  - JPA
-  - Hibernate
-  - OpenAPI
-  - Spring Security
-  - JWT
-  - Docker
-  - Docker Compose
-  - ModelMapper
-- Frontend
-  - React
-  - React Bootstrap
-  - Axios
-  - React Router Dom
-  - React Query
-  - React Hook Form
-  - Redux Toolkit
-  - zod (for validation)
-  - React Leftlet (for map)
-
-## Features
-
-- Customer Login and Register
-- Customer can create, read, update Properties
-- Customer can view all properties
-- Customer can Search, Sort and Filter properties
-- Customer request offer for a property
-- Customer can add properties to their favorite list and view them later or remove them from the list
-- Owner can view all properties
-- Owner can view all offers
-- Owner can accept or reject offers
-- Admin can view all properties
-- Admin can view all offers
-- Admin can view all users
-- Admin can view all owners
-- Admin can view all customers
-- Admin access to admin dashboard
-
-
-## Getting Started
-1. Clone the repository
-
-```bash 
-git clone https://github.com/vicheanath/mini-pms.git
-```
-
-2. Change directory to the project directory
-
-```bash 
-cd mini-pms
-```
-
-2. Install all dependencies
-
-```bash 
-cd frontend && npm install
-```
-
-4. Start the backend server
-   
-```bash 
-cd backend/pms
-```
-
- - Run Docker Compose to start the PostgreSQL database
- - ```bash
-   docker-compose up -d
-   ```
- - Start the Spring Boot server with the following command or run the project in your favorite IDE
- - ```bash
-    mvn spring-boot:run
-   ```
-
-5. Start the frontend server
+### 1. Build Backend
 ```bash
-npm start
+cd backend/pms
+./mvnw clean package -DskipTests
+```
+The executable JAR will be in `backend/pms/target/pms-0.0.1-SNAPSHOT.jar`.
+
+### 2. Build Frontend
+```bash
+cd frontend
+npm install
+npm run build
+```
+The static files will be in `frontend/build`.
+
+### 3. Run Production (Locally)
+Run backend (Frontend files should be served by a web server or integrated):
+```bash
+java -jar backend/pms/target/pms-0.0.1-SNAPSHOT.jar
 ```
 
-7. Open your browser and navigate to http://localhost:3000
+## 🔑 Configuration
+The project uses `application.yml` for configuration. The database is H2 In-Memory (data is seeded on every restart).
+Razorpay keys are configured in the backend properties.
 
-## UserDummy Data
+## 📝 Credentials
+-   **Admin**: admin@rentaplace.com / password
+-   **Owner**: owner@rentaplace.com / password
+-   **Customer**: customer@rentaplace.com / password
 
-- Admin
-  - email:`a@a.com`
-  - password: `123`
-- Owner
-  - email:`b@b.com`
-  - password: `123`
-- Customer
-  - email:`c@c.com`
-  - password: `123`
-
-## Usage
-
-## Contributors
-
-<a href="https://github.com/vicheanath/mini-pms/graphs/contributors">
-  <img src="https://contrib.rocks/image?repo=vicheanath/mini-pms" />
-</a>
-
-## License
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details
-
+---
+**RentAPlace 2026** - All Rights Reserved.

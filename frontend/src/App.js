@@ -6,7 +6,7 @@ import { setIsAuthenticated } from "./features/authSlice";
 
 const App = () => {
   const dispatch = useDispatch();
-  const { accessToken} = useSelector((state) => state.auth);
+  const { accessToken } = useSelector((state) => state.auth);
   const handleCheckAuth = () => {
     if (accessToken) {
       dispatch(setIsAuthenticated());
@@ -19,7 +19,7 @@ const App = () => {
 
   return (
     <>
-        <Router />
+      <Router />
     </>
   );
 };

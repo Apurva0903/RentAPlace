@@ -87,6 +87,9 @@ public class Property {
     @OneToMany(mappedBy = "property")
     List<Favorite> favorites;
 
+    @jakarta.persistence.ElementCollection(fetch = FetchType.EAGER)
+    private List<String> facilities;
+
     @CreatedDate
     private LocalDateTime createdAt;
 
@@ -96,12 +99,13 @@ public class Property {
     @JsonGetter("pictures")
     public List<String> getPictures() {
 
-        return pictures.isEmpty() ? List.of("https://photos.zillowstatic.com/fp/8352ff644b62e323d9697de553de11c7-cc_ft_768.webp"
-                , "https://photos.zillowstatic.com/fp/8352ff644b62e323d9697de553de11c7-cc_ft_768.webp")
+        return pictures.isEmpty()
+                ? List.of("https://photos.zillowstatic.com/fp/8352ff644b62e323d9697de553de11c7-cc_ft_768.webp",
+                        "https://photos.zillowstatic.com/fp/8352ff644b62e323d9697de553de11c7-cc_ft_768.webp")
 
                 : pictures.stream()
-                .map(Picture::getUrl)
-                .toList();
+                        .map(Picture::getUrl)
+                        .toList();
 
     }
 

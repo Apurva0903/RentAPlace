@@ -20,9 +20,16 @@ import RequestOffer from "./RequestOffer";
 import { useMutation } from "react-query";
 import { useSelector } from "react-redux";
 import { api } from "../libs/api";
+import ConfirmationModal from "../components/ConfirmationModal";
+import { openLoginModal } from "../features/uiSlice";
+import { useDispatch } from "react-redux";
+import { MdPayment } from "react-icons/md";
 
 const PropertyDetail = () => {
   const { id } = useParams();
+  const dispatch = useDispatch();
+  const { isAuthenticated } = useSelector((state) => state.auth);
+  const [showBookingModal, setShowBookingModal] = React.useState(false);
 
   const { data, isLoading, isError } = useQuery(`properties/${id}`);
   const navigate = useNavigate();
@@ -71,7 +78,7 @@ const PropertyDetail = () => {
                     className="d-block w-100"
                     src={picture}
                     alt="First slide"
-                    img-fluid
+                    fluid
                     height={500}
                   />
                 </Carousel.Item>
@@ -90,13 +97,13 @@ const PropertyDetail = () => {
                 data.offerStatus === "PENDING"
                   ? "warning"
                   : data.offerStatus === "APPROVED"
-                  ? "success"
-                  : "danger"
+                    ? "success"
+                    : "danger"
               }
             >
               {data.offerStatus}
             </Badge>
-            <div className="mt-4">
+            <div className="mt-4 d-flex gap-2">
               <Button
                 variant="primary"
                 onClick={() => {
@@ -105,6 +112,20 @@ const PropertyDetail = () => {
               >
                 <MdOutlineLocalOffer /> Request Offer
               </Button>
+              {data.offerStatus === 'AVAILABLE' && (
+                <Button
+                  variant="success"
+                  onClick={() => {
+                    if (!isAuthenticated) {
+                      dispatch(openLoginModal());
+                      return;
+                    }
+                    setShowBookingModal(true);
+                  }}
+                >
+                  <MdPayment className="me-1" /> Book Now
+                </Button>
+              )}
             </div>
           </div>
         </Col>
@@ -135,6 +156,15 @@ const PropertyDetail = () => {
           handleClose={() => setShow(false)}
           propertyId={id}
           requestOfferMutation={requestOfferMutation}
+        />
+        <ConfirmationModal
+          show={showBookingModal}
+          onHide={() => setShowBookingModal(false)}
+          propertyId={id}
+          price={data.price}
+          onSuccess={() => {
+            // Optional: reload or show success message
+          }}
         />
       </Row>
     </React.Fragment>

@@ -48,6 +48,30 @@ public class OfferServiceImpl implements OfferService {
     }
 
     @Override
+    @Transactional(rollbackFor = DataAccessException.class)
+    public Offer bookProperty(Member customer, Property property, double price) {
+        if (!PropertyOfferStatus.AVAILABLE.equals(property.getOfferStatus())) {
+            throw new PlatformException("Property is not available for booking.", HttpStatus.BAD_REQUEST);
+        }
+
+        try {
+            Offer offer = new Offer();
+            offer.setCustomer(customer);
+            offer.setProperty(property);
+            offer.setRemark("Token Booking Payment");
+            offer.setPrice(price);
+            offer.setStatus(OfferStatus.BOOKED);
+
+            property.setOfferStatus(PropertyOfferStatus.SOLD);
+            propertyRepo.save(property);
+
+            return offerRepo.save(offer);
+        } catch (DataAccessException ex) {
+            throw new RuntimeException(ex.getMessage());
+        }
+    }
+
+    @Override
     public Page<Offer> getAllOffersByCustomer(Member customer, Pageable pageable) {
         return offerRepo.findAllOffersByCustomer(customer, pageable);
     }
@@ -102,7 +126,8 @@ public class OfferServiceImpl implements OfferService {
         }
     }
 
-    // Method to check if an offer can be canceled based on its status ('contingency' or not)
+    // Method to check if an offer can be canceled based on its status
+    // ('contingency' or not)
     private boolean isOfferCancelable(Offer offer) {
         // Let's determine if offer can be canceled
         return offer.getProperty().getOfferStatus() != PropertyOfferStatus.CONTINGENT;
