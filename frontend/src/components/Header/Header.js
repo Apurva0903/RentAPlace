@@ -5,12 +5,9 @@ import { useDispatch, useSelector } from "react-redux";
 import { FiUser, FiDatabase, FiHome, FiFileText, FiHeart, FiLogOut } from "react-icons/fi";
 import Login from "../Login";
 import {
-  closeLoginModal,
   openLoginModal,
-  openRegisterModal,
-  closeRegisterModal,
+  closeLoginModal,
 } from "../../features/uiSlice";
-import Register from "../Register";
 import { logout } from "../../features/authSlice";
 
 const Header = ({ navLinks }) => {
@@ -22,7 +19,7 @@ const Header = ({ navLinks }) => {
   const isOwner = user?.roles?.some((r) => r.role === "Owner");
   const isCustomer = user?.roles?.some((r) => r.role === "Customer");
 
-  const { isLoginModalOpen, isRegisterModalOpen } = useSelector((state) => state.ui);
+  const { isLoginModalOpen } = useSelector((state) => state.ui);
 
   return (
     <>
@@ -96,6 +93,9 @@ const Header = ({ navLinks }) => {
                   <Button variant="outline-dark" className="rounded-pill px-4" onClick={() => dispatch(openLoginModal())}>
                     Login
                   </Button>
+                  <Link to="/register/customer" className="btn btn-dark rounded-pill px-4">
+                    Register
+                  </Link>
                 </div>
               )}
             </div>
@@ -105,7 +105,6 @@ const Header = ({ navLinks }) => {
       {/* Spacer for fixed header */}
       <div style={{ height: '80px' }}></div>
 
-      <Register show={isRegisterModalOpen} handleClose={() => dispatch(closeRegisterModal())} />
       <Login show={isLoginModalOpen} handleClose={() => dispatch(closeLoginModal())} />
     </>
   );

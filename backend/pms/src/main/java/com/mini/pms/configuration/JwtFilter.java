@@ -12,7 +12,6 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
-import org.springframework.web.servlet.HandlerExceptionResolver;
 
 import java.util.Objects;
 
@@ -22,7 +21,6 @@ public class JwtFilter extends OncePerRequestFilter {
 
     private final VerifyJwtService verifyJwtService;
     private final UserDetailsService detailsService;
-    private final HandlerExceptionResolver handlerExceptionResolver;
 
     @Override
     protected void doFilterInternal(
@@ -34,18 +32,24 @@ public class JwtFilter extends OncePerRequestFilter {
             if (Objects.nonNull(authorize)
                     && authorize.startsWith("Bearer ")
                     && !authorize.equals("Bearer null")
-            ) {
+                    && !authorize.equals("Bearer undefined")) {
                 var jwtInfo = extractJwt(authorize);
                 var member = detailsService.loadUserByUsername(jwtInfo.getEmail());
-                var authentication =
-                        UsernamePasswordAuthenticationToken.authenticated(
-                                jwtInfo.getEmail(), member.getPassword(), jwtInfo.getRoles());
+                var authentication = UsernamePasswordAuthenticationToken.authenticated(
+                        jwtInfo.getEmail(), member.getPassword(), jwtInfo.getRoles());
                 authentication.setDetails(member.getUsername());
                 SecurityContextHolder.getContext().setAuthentication(authentication);
             }
             filterChain.doFilter(request, response);
         } catch (Exception e) {
-            handlerExceptionResolver.resolveException(request, response, null, e);
+            // If token is invalid or expired, we let the request proceed as anonymous.
+            // Security configuration will reject it if the endpoint requires
+            // authentication.
+            try {
+                filterChain.doFilter(request, response);
+            } catch (Exception ex) {
+                // Ignore
+            }
         }
     }
 

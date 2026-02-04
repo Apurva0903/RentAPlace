@@ -37,7 +37,6 @@ public class FavoriteServiceImpl implements FavoriteService {
             throw new PlatformException("Favorite already exist", HttpStatus.BAD_REQUEST);
         }
 
-
         // At this point, both member and property exist
         // Create a new Favorite entity and set its member and property
         Favorite favorite = new Favorite();
@@ -51,7 +50,7 @@ public class FavoriteServiceImpl implements FavoriteService {
     @Override
     @Transactional
     public void removeFavorite(long propertyId, long memberId) {
-        Member member = memberService.profile(memberId);
+        Member member = memberService.findById(memberId);
         Property property = propertyService.findById(propertyId);
         int isDeleted = favoriteRepo.deleteByMemberAndProperty(member, property);
         if (isDeleted == 0) {
@@ -60,8 +59,8 @@ public class FavoriteServiceImpl implements FavoriteService {
     }
 
     @Override
-    public boolean isFavorite(long propertyId) {
-        Member member = memberService.profile(propertyId);
+    public boolean isFavorite(long propertyId, long memberId) {
+        Member member = memberService.findById(memberId);
         Property property = propertyService.findById(propertyId);
         return favoriteRepo.existsByMemberAndProperty(member, property);
     }
@@ -88,6 +87,5 @@ public class FavoriteServiceImpl implements FavoriteService {
         return favoriteRepo.findByMemberAndProperty(member, property)
                 .orElseThrow(() -> new PlatformException("Not Found", HttpStatus.NOT_FOUND));
     }
-
 
 }

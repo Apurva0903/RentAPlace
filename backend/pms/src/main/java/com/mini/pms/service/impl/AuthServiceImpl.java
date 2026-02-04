@@ -38,9 +38,9 @@ public class AuthServiceImpl implements AuthService {
 
     @Value("${jwt.secret}")
     private String secret;
-    // 3 seconds for testing
-    private final long ACCESS_TOKEN_EXPIRED = 1000 * 3; // 3s
-    private final long REFRESH_TOKEN_EXPIRED = 1000 * 60 * 20; // 20mn
+    // 15 minutes for access token
+    private final long ACCESS_TOKEN_EXPIRED = 1000 * 60 * 15; // 15mn
+    private final long REFRESH_TOKEN_EXPIRED = 1000 * 60 * 60 * 24; // 24 hours
 
     private final AuthenticationManager authManager;
 
@@ -49,19 +49,18 @@ public class AuthServiceImpl implements AuthService {
     private final RoleRepo roleRepo;
     private final MemberRepo memberRepo;
 
-
     @Override
     public Member getAuthenticatedUser() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        return memberRepo.findByEmail(authentication.getName()).orElseThrow(() -> new PlatformException("Not found", HttpStatus.NOT_FOUND));
+        return memberRepo.findByEmail(authentication.getName())
+                .orElseThrow(() -> new PlatformException("Not found", HttpStatus.NOT_FOUND));
     }
 
     @Override
     public Authentication authenticate(String email, String password) {
         var context = SecurityContextHolder.getContext();
-        var authPayload =
-                UsernamePasswordAuthenticationToken.authenticated(
-                        email, password, Collections.emptyList());
+        var authPayload = UsernamePasswordAuthenticationToken.authenticated(
+                email, password, Collections.emptyList());
 
         try {
             Authentication auth = authManager.authenticate(authPayload);
@@ -83,20 +82,19 @@ public class AuthServiceImpl implements AuthService {
         var expireAt = new Date(now.getTime());
         expireAt.setTime(expireAt.getTime() + expired);
 
-        List<Map<String, String>> roles =
-                auth.getAuthorities().stream().map(m -> Map.of("role", m.getAuthority())).toList();
+        List<Map<String, String>> roles = auth.getAuthorities().stream().map(m -> Map.of("role", m.getAuthority()))
+                .toList();
         Map<String, Object> claims = new HashMap<>();
         claims.put("email", email);
         claims.put("roles", roles);
         claims.put("subject", tokenType.name());
 
-        var jwt =
-                Jwts.builder()
-                        .setClaims(claims)
-                        .setIssuedAt(now)
-                        .setExpiration(expireAt)
-                        .signWith(SignatureAlgorithm.HS512, secret)
-                        .compact();
+        var jwt = Jwts.builder()
+                .setClaims(claims)
+                .setIssuedAt(now)
+                .setExpiration(expireAt)
+                .signWith(SignatureAlgorithm.HS512, secret)
+                .compact();
 
         return jwt;
     }
@@ -154,6 +152,7 @@ public class AuthServiceImpl implements AuthService {
         Member member = Member.builder()
                 .name(authRequest.getName())
                 .email(authRequest.getEmail())
+                .phone(authRequest.getPhone())
                 .status(authRequest.getStatus())
                 .password(passwordEncoder.encode(authRequest.getPassword()))
                 .roles(List.of(role))

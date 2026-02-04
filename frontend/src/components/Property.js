@@ -51,9 +51,10 @@ const Property = ({
       <div className="position-relative">
         <Link to={`/property/${id}`}>
           <img
-            src={pictures?.[0] || 'https://via.placeholder.com/300x200?text=No+Image'}
+            src={pictures?.[0] || '/assets/images/default-property.png'}
             className="card-img-top"
             alt="Property"
+            onError={(e) => { e.target.onerror = null; e.target.src = '/assets/images/default-property.png'; }}
             style={{ height: '220px', objectFit: 'cover' }}
           />
         </Link>
@@ -63,6 +64,10 @@ const Property = ({
             style={{ width: '40px', height: '40px' }}
             onClick={(e) => {
               e.preventDefault();
+              if (!isAuthenticated) {
+                dispatch(openLoginModal());
+                return;
+              }
               isFav ? removeFavorite(id) : addFavorite(id);
               refetch?.();
             }}
@@ -144,7 +149,7 @@ const Property = ({
           if (refetch) refetch();
         }}
       />
-    </div>
+    </div >
   );
 };
 

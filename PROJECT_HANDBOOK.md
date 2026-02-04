@@ -67,8 +67,8 @@ Open **http://localhost:3000** in your browser.
 ---
 
 ## 5. Troubleshooting
-- **Why are images broken?**
-  - The project uses external Unsplash URLs. If you are offline or they are blocked, they won't load.
+- **images ?**
+  - uses external Unsplash URLs. 
   - Check `data.sql` in `backend/src/main/resources`.
 - **"Connection Refused"**: Ensure the backend is running. The frontend needs the API at `localhost:8080`.
 - **Blank Screen**: Check the browser console (F12) for errors. Often due to a crash in React code.

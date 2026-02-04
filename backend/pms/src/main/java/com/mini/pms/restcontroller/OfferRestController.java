@@ -31,7 +31,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.security.Principal;
 
 @RestController
-@RequestMapping("api/v1/offers")
+@RequestMapping("/api/v1/offers")
 public class OfferRestController {
     private final OfferService offerService;
     private final MemberService memberService;

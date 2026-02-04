@@ -43,72 +43,70 @@ import java.util.List;
 @Where(clause = "status != 'DELETED'")
 public class Property {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+        @Id
+        @GeneratedValue(strategy = GenerationType.IDENTITY)
+        private long id;
 
-    private String title;
-    private double price;
-    private String location;
-    private String description;
+        private String title;
+        private double price;
+        private String location;
+        private String description;
 
-    @JsonProperty
-    @OneToMany(fetch = FetchType.EAGER, mappedBy = "property")
-    @JsonManagedReference
-    private List<Picture> pictures;
+        @JsonProperty
+        @OneToMany(fetch = FetchType.EAGER, mappedBy = "property")
+        @JsonManagedReference
+        private List<Picture> pictures;
 
-    @OneToMany(fetch = FetchType.EAGER, mappedBy = "property")
-    @BatchSize(size = 10)
-    private List<Offer> offers;
+        @OneToMany(fetch = FetchType.EAGER, mappedBy = "property")
+        @BatchSize(size = 10)
+        private List<Offer> offers;
 
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JsonManagedReference
-    private Member owner;
+        @ManyToOne(fetch = FetchType.EAGER)
+        @JsonManagedReference
+        private Member owner;
 
-    private String category;
+        private String category;
 
-    private String subCategory;
+        private String subCategory;
 
-    private String type;
+        private String type;
 
-    @Enumerated(EnumType.STRING)
-    @ColumnDefault(value = "'AVAILABLE'")
-    private PropertyOfferStatus offerStatus;
+        @Enumerated(EnumType.STRING)
+        @ColumnDefault(value = "'AVAILABLE'")
+        private PropertyOfferStatus offerStatus;
 
-    @Enumerated(EnumType.STRING)
-    @ColumnDefault(value = "'ACTIVE'")
-    private PropertyStatus status;
+        @Enumerated(EnumType.STRING)
+        @ColumnDefault(value = "'ACTIVE'")
+        private PropertyStatus status;
 
-    private int numberOfRoom;
+        private int numberOfRoom;
 
-    private double latitude;
-    private double longitude;
+        private double latitude;
+        private double longitude;
 
-    @OneToMany(mappedBy = "property")
-    List<Favorite> favorites;
+        @OneToMany(mappedBy = "property")
+        List<Favorite> favorites;
 
-    @jakarta.persistence.ElementCollection(fetch = FetchType.EAGER)
-    private List<String> facilities;
+        @jakarta.persistence.ElementCollection(fetch = FetchType.EAGER)
+        private List<String> facilities;
 
-    @CreatedDate
-    private LocalDateTime createdAt;
+        @CreatedDate
+        private LocalDateTime createdAt;
 
-    @LastModifiedDate
-    private LocalDateTime updatedAt;
+        @LastModifiedDate
+        private LocalDateTime updatedAt;
 
-    @JsonGetter("pictures")
-    public List<String> getPictures() {
+        @JsonGetter("pictures")
+        public List<String> getPictures() {
 
-        return pictures.isEmpty()
-                ? List.of("https://photos.zillowstatic.com/fp/8352ff644b62e323d9697de553de11c7-cc_ft_768.webp",
-                        "https://photos.zillowstatic.com/fp/8352ff644b62e323d9697de553de11c7-cc_ft_768.webp")
+                return pictures.isEmpty()
+                                ? List.of()
+                                : pictures.stream()
+                                                .map(Picture::getUrl)
+                                                .toList();
 
-                : pictures.stream()
-                        .map(Picture::getUrl)
-                        .toList();
+        }
 
-    }
-
-    @Transient
-    private boolean isFavorite;
+        @Transient
+        private boolean isFavorite;
 }

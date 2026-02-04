@@ -1,0 +1,306 @@
+﻿[INFO] Scanning for projects...
+[INFO] 
+[INFO] -----------------------< com.mini:rent-a-place >------------------------
+[INFO] Building RentAPlace 0.0.1-SNAPSHOT
+[INFO]   from pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] >>> spring-boot:3.2.2:run (default-cli) > test-compile @ rent-a-place >>>
+[INFO] 
+[INFO] --- resources:3.3.1:resources (default-resources) @ rent-a-place ---
+[INFO] Copying 1 resource from src\main\resources to target\classes
+[INFO] Copying 3 resources from src\main\resources to target\classes
+[INFO] 
+[INFO] --- compiler:3.11.0:compile (default-compile) @ rent-a-place ---
+[INFO] Nothing to compile - all classes are up to date
+[INFO] 
+[INFO] --- resources:3.3.1:testResources (default-testResources) @ rent-a-place ---
+[INFO] skip non existing resourceDirectory D:\final project cdac\RentAplace\backend\pms\src\test\resources
+[INFO] 
+[INFO] --- compiler:3.11.0:testCompile (default-testCompile) @ rent-a-place ---
+[INFO] Nothing to compile - all classes are up to date
+[INFO] 
+[INFO] <<< spring-boot:3.2.2:run (default-cli) < test-compile @ rent-a-place <<<
+[INFO] 
+[INFO] 
+[INFO] --- spring-boot:3.2.2:run (default-cli) @ rent-a-place ---
+[INFO] Attaching agents: []
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+ :: Spring Boot ::                (v3.2.2)
+
+2026-02-04T01:39:04.829+05:30  INFO 12108 --- [rentaplace] [           main] com.mini.pms.PmsApplication              : Starting PmsApplication using Java 17.0.1 with PID 12108 (D:\final project cdac\RentAplace\backend\pms\target\classes started by KV in D:\final project cdac\RentAplace\backend\pms)
+2026-02-04T01:39:04.837+05:30  INFO 12108 --- [rentaplace] [           main] com.mini.pms.PmsApplication              : No active profile set, falling back to 1 default profile: "default"
+2026-02-04T01:39:06.871+05:30  INFO 12108 --- [rentaplace] [           main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-02-04T01:39:06.977+05:30  INFO 12108 --- [rentaplace] [           main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 98 ms. Found 8 JPA repository interfaces.
+2026-02-04T01:39:07.820+05:30  INFO 12108 --- [rentaplace] [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8080 (http)
+2026-02-04T01:39:07.836+05:30  INFO 12108 --- [rentaplace] [           main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2026-02-04T01:39:07.837+05:30  INFO 12108 --- [rentaplace] [           main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.18]
+2026-02-04T01:39:07.929+05:30  INFO 12108 --- [rentaplace] [           main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2026-02-04T01:39:07.930+05:30  INFO 12108 --- [rentaplace] [           main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 3038 ms
+2026-02-04T01:39:08.207+05:30  INFO 12108 --- [rentaplace] [           main] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2026-02-04T01:39:08.313+05:30  INFO 12108 --- [rentaplace] [           main] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.4.1.Final
+2026-02-04T01:39:08.366+05:30  INFO 12108 --- [rentaplace] [           main] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
+2026-02-04T01:39:08.623+05:30  INFO 12108 --- [rentaplace] [           main] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2026-02-04T01:39:08.653+05:30  INFO 12108 --- [rentaplace] [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2026-02-04T01:39:08.856+05:30  INFO 12108 --- [rentaplace] [           main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection conn0: url=jdbc:h2:mem:pms-db user=SA
+2026-02-04T01:39:08.858+05:30  INFO 12108 --- [rentaplace] [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2026-02-04T01:39:08.897+05:30  WARN 12108 --- [rentaplace] [           main] org.hibernate.orm.deprecation            : HHH90000025: H2Dialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2026-02-04T01:39:10.686+05:30  INFO 12108 --- [rentaplace] [           main] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+Hibernate: 
+    drop table if exists favorite cascade 
+Hibernate: 
+    drop table if exists member cascade 
+Hibernate: 
+    drop table if exists member_role cascade 
+Hibernate: 
+    drop table if exists offer cascade 
+Hibernate: 
+    drop table if exists password_reset_token cascade 
+Hibernate: 
+    drop table if exists payments cascade 
+Hibernate: 
+    drop table if exists picture cascade 
+Hibernate: 
+    drop table if exists property cascade 
+Hibernate: 
+    drop table if exists property_facilities cascade 
+Hibernate: 
+    drop table if exists role cascade 
+Hibernate: 
+    create table favorite (
+        id bigint generated by default as identity,
+        member_id bigint,
+        property_id bigint,
+        primary key (id)
+    )
+Hibernate: 
+    create table member (
+        created_at timestamp(6),
+        id bigint generated by default as identity,
+        updated_at timestamp(6),
+        address varchar(255),
+        city varchar(255),
+        email varchar(255) unique,
+        name varchar(255),
+        password varchar(255),
+        phone varchar(255),
+        state varchar(255),
+        status varchar(255) default 'ACTIVE' check (status in ('ACTIVE','INACTIVE')),
+        zip varchar(255),
+        primary key (id)
+    )
+Hibernate: 
+    create table member_role (
+        member_id bigint not null,
+        role_id bigint not null
+    )
+Hibernate: 
+    create table offer (
+        price float(53) not null,
+        created_at timestamp(6),
+        customer_id bigint,
+        id bigint generated by default as identity,
+        property_id bigint,
+        updated_at timestamp(6),
+        remark varchar(255),
+        status varchar(255) default 'PENDING' check (status in ('PENDING','REJECTED','ACCEPTED','CANCELED','BOOKED')),
+        primary key (id)
+    )
+Hibernate: 
+    create table password_reset_token (
+        expiry_date timestamp(6),
+        id bigint generated by default as identity,
+        user_id bigint not null unique,
+        token varchar(255),
+        primary key (id)
+    )
+Hibernate: 
+    create table payments (
+        amount float(53) not null,
+        created_at timestamp(6) not null,
+        id bigint generated by default as identity,
+        request_id bigint,
+        payment_method varchar(255),
+        status varchar(255) check (status in ('SUCCESS','FAILED')),
+        user_email varchar(255),
+        primary key (id)
+    )
+Hibernate: 
+    create table picture (
+        created_at timestamp(6),
+        id bigint generated by default as identity,
+        property_id bigint,
+        size bigint not null,
+        updated_at timestamp(6),
+        image_key varchar(255) unique,
+        name varchar(255),
+        url varchar(255),
+        primary key (id)
+    )
+Hibernate: 
+    create table property (
+        latitude float(53) not null,
+        longitude float(53) not null,
+        number_of_room integer not null,
+        price float(53) not null,
+        created_at timestamp(6),
+        id bigint generated by default as identity,
+        owner_id bigint,
+        updated_at timestamp(6),
+        category varchar(255),
+        description varchar(255),
+        location varchar(255),
+        offer_status varchar(255) default 'AVAILABLE' check (offer_status in ('AVAILABLE','PENDING','CONTINGENT','SOLD')),
+        status varchar(255) default 'ACTIVE' check (status in ('ACTIVE','DELETED')),
+        sub_category varchar(255),
+        title varchar(255),
+        type varchar(255),
+        primary key (id)
+    )
+Hibernate: 
+    create table property_facilities (
+        property_id bigint not null,
+        facilities varchar(255)
+    )
+Hibernate: 
+    create table role (
+        created_at timestamp(6),
+        id bigint generated by default as identity,
+        updated_at timestamp(6),
+        name varchar(255),
+        primary key (id)
+    )
+Hibernate: 
+    alter table if exists favorite 
+       add constraint FK5w3q9ljpthkixo71hetx3ired 
+       foreign key (member_id) 
+       references member
+Hibernate: 
+    alter table if exists favorite 
+       add constraint FKrs1g9jcmat9q583e16dgh2c2f 
+       foreign key (property_id) 
+       references property
+Hibernate: 
+    alter table if exists member_role 
+       add constraint FKdiix07v86r3ntrbs3l02qr7y0 
+       foreign key (role_id) 
+       references role
+Hibernate: 
+    alter table if exists member_role 
+       add constraint FK34g7epqlcxqloewku3aoqhhmg 
+       foreign key (member_id) 
+       references member
+Hibernate: 
+    alter table if exists offer 
+       add constraint FKgxlge2amoanpft2yoo2ajydsm 
+       foreign key (customer_id) 
+       references member
+Hibernate: 
+    alter table if exists offer 
+       add constraint FKaa26rdsuw275qbrcjqhrlhyt8 
+       foreign key (property_id) 
+       references property
+Hibernate: 
+    alter table if exists password_reset_token 
+       add constraint FKf6m2gxga9asld5fdtw3mvri5w 
+       foreign key (user_id) 
+       references member
+Hibernate: 
+    alter table if exists payments 
+       add constraint FKrh0v48alv5i1dcr9pvfc68epx 
+       foreign key (user_email) 
+       references member (email)
+Hibernate: 
+    alter table if exists picture 
+       add constraint FKnebrqlahyltj8yff30s2b1a6g 
+       foreign key (property_id) 
+       references property
+Hibernate: 
+    alter table if exists property 
+       add constraint FKn4v44hnppcfc4b6n0cepgb6e9 
+       foreign key (owner_id) 
+       references member
+Hibernate: 
+    alter table if exists property_facilities 
+       add constraint FK7w9g1iubaqsdmuwfnsyraubto 
+       foreign key (property_id) 
+       references property
+2026-02-04T01:39:10.943+05:30  INFO 12108 --- [rentaplace] [           main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2026-02-04T01:39:11.428+05:30  INFO 12108 --- [rentaplace] [           main] o.s.d.j.r.query.QueryEnhancerFactory     : Hibernate is in classpath; If applicable, HQL parser will be used.
+2026-02-04T01:39:12.607+05:30  WARN 12108 --- [rentaplace] [           main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2026-02-04T01:39:12.995+05:30  INFO 12108 --- [rentaplace] [           main] o.s.b.a.e.web.EndpointLinksResolver      : Exposing 0 endpoint(s) beneath base path '/actuator'
+2026-02-04T01:39:13.084+05:30  INFO 12108 --- [rentaplace] [           main] o.s.s.web.DefaultSecurityFilterChain     : Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@270b527f, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@23ba044f, org.springframework.security.web.context.SecurityContextHolderFilter@68d2e6eb, org.springframework.security.web.header.HeaderWriterFilter@40a38a44, org.springframework.web.filter.CorsFilter@736b8ed4, org.springframework.security.web.authentication.logout.LogoutFilter@75643efa, com.mini.pms.configuration.JwtFilter@52bcd7c9, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@4b6f196c, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@5b9037b6, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@7c556af2, org.springframework.security.web.access.intercept.AuthorizationFilter@13eead57]
+2026-02-04T01:39:13.100+05:30  WARN 12108 --- [rentaplace] [           main] o.s.s.c.a.web.builders.WebSecurity       : You are asking Spring Security to ignore Mvc [pattern='/images/**']. This is not recommended -- please use permitAll via HttpSecurity#authorizeHttpRequests instead.
+2026-02-04T01:39:13.100+05:30  INFO 12108 --- [rentaplace] [           main] o.s.s.web.DefaultSecurityFilterChain     : Will not secure Mvc [pattern='/images/**']
+2026-02-04T01:39:13.100+05:30  WARN 12108 --- [rentaplace] [           main] o.s.s.c.a.web.builders.WebSecurity       : You are asking Spring Security to ignore Mvc [pattern='/js/**']. This is not recommended -- please use permitAll via HttpSecurity#authorizeHttpRequests instead.
+2026-02-04T01:39:13.100+05:30  INFO 12108 --- [rentaplace] [           main] o.s.s.web.DefaultSecurityFilterChain     : Will not secure Mvc [pattern='/js/**']
+2026-02-04T01:39:13.100+05:30  WARN 12108 --- [rentaplace] [           main] o.s.s.c.a.web.builders.WebSecurity       : You are asking Spring Security to ignore Mvc [pattern='/static/**']. This is not recommended -- please use permitAll via HttpSecurity#authorizeHttpRequests instead.
+2026-02-04T01:39:13.100+05:30  INFO 12108 --- [rentaplace] [           main] o.s.s.web.DefaultSecurityFilterChain     : Will not secure Mvc [pattern='/static/**']
+2026-02-04T01:39:13.100+05:30  WARN 12108 --- [rentaplace] [           main] o.s.s.c.a.web.builders.WebSecurity       : You are asking Spring Security to ignore Mvc [pattern='/webjars/**']. This is not recommended -- please use permitAll via HttpSecurity#authorizeHttpRequests instead.
+2026-02-04T01:39:13.100+05:30  INFO 12108 --- [rentaplace] [           main] o.s.s.web.DefaultSecurityFilterChain     : Will not secure Mvc [pattern='/webjars/**']
+2026-02-04T01:39:13.100+05:30  WARN 12108 --- [rentaplace] [           main] o.s.s.c.a.web.builders.WebSecurity       : You are asking Spring Security to ignore Mvc [pattern='/swagger-resources/']. This is not recommended -- please use permitAll via HttpSecurity#authorizeHttpRequests instead.
+2026-02-04T01:39:13.100+05:30  INFO 12108 --- [rentaplace] [           main] o.s.s.web.DefaultSecurityFilterChain     : Will not secure Mvc [pattern='/swagger-resources/']
+2026-02-04T01:39:13.100+05:30  WARN 12108 --- [rentaplace] [           main] o.s.s.c.a.web.builders.WebSecurity       : You are asking Spring Security to ignore Mvc [pattern='/swagger-ui/**']. This is not recommended -- please use permitAll via HttpSecurity#authorizeHttpRequests instead.
+2026-02-04T01:39:13.100+05:30  INFO 12108 --- [rentaplace] [           main] o.s.s.web.DefaultSecurityFilterChain     : Will not secure Mvc [pattern='/swagger-ui/**']
+2026-02-04T01:39:13.100+05:30  WARN 12108 --- [rentaplace] [           main] o.s.s.c.a.web.builders.WebSecurity       : You are asking Spring Security to ignore Mvc [pattern='/v3/api-docs/**']. This is not recommended -- please use permitAll via HttpSecurity#authorizeHttpRequests instead.
+2026-02-04T01:39:13.100+05:30  INFO 12108 --- [rentaplace] [           main] o.s.s.web.DefaultSecurityFilterChain     : Will not secure Mvc [pattern='/v3/api-docs/**']
+2026-02-04T01:39:13.714+05:30  WARN 12108 --- [rentaplace] [           main] ConfigServletWebServerApplicationContext : Exception encountered during context initialization - cancelling refresh attempt: org.springframework.context.ApplicationContextException: Failed to start bean 'webServerStartStop'
+2026-02-04T01:39:13.725+05:30  INFO 12108 --- [rentaplace] [           main] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+Hibernate: 
+    drop table if exists favorite cascade 
+Hibernate: 
+    drop table if exists member cascade 
+Hibernate: 
+    drop table if exists member_role cascade 
+Hibernate: 
+    drop table if exists offer cascade 
+Hibernate: 
+    drop table if exists password_reset_token cascade 
+Hibernate: 
+    drop table if exists payments cascade 
+Hibernate: 
+    drop table if exists picture cascade 
+Hibernate: 
+    drop table if exists property cascade 
+Hibernate: 
+    drop table if exists property_facilities cascade 
+Hibernate: 
+    drop table if exists role cascade 
+2026-02-04T01:39:13.727+05:30  INFO 12108 --- [rentaplace] [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2026-02-04T01:39:13.743+05:30  INFO 12108 --- [rentaplace] [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2026-02-04T01:39:13.765+05:30  INFO 12108 --- [rentaplace] [           main] .s.b.a.l.ConditionEvaluationReportLogger : 
+
+Error starting ApplicationContext. To display the condition evaluation report re-run your application with 'debug' enabled.
+2026-02-04T01:39:13.781+05:30 ERROR 12108 --- [rentaplace] [           main] o.s.b.d.LoggingFailureAnalysisReporter   : 
+
+***************************
+APPLICATION FAILED TO START
+***************************
+
+Description:
+
+Web server failed to start. Port 8080 was already in use.
+
+Action:
+
+Identify and stop the process that's listening on port 8080 or configure this application to listen on another port.
+
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD FAILURE
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time:  13.892 s
+[INFO] Finished at: 2026-02-04T01:39:13+05:30
+[INFO] ------------------------------------------------------------------------
+[ERROR] Failed to execute goal org.springframework.boot:spring-boot-maven-plugin:3.2.2:run (default-cli) on project rent-a-place: Process terminated with exit code: 1 -> [Help 1]
+[ERROR] 
+[ERROR] To see the full stack trace of the errors, re-run Maven with the -e switch.
+[ERROR] Re-run Maven using the -X switch to enable full debug logging.
+[ERROR] 
+[ERROR] For more information about the errors and possible solutions, please read the following articles:
+[ERROR] [Help 1] http://cwiki.apache.org/confluence/display/MAVEN/MojoExecutionException

@@ -46,8 +46,8 @@ Razorpay keys are configured in the backend properties.
 
 ## 📝 Credentials
 -   **Admin**: admin@rentaplace.com / password
--   **Owner**: owner@rentaplace.com / password
--   **Customer**: customer@rentaplace.com / password
+-   **Owner**: owner@rentaplace.com / 123
+-   **Customer**: customer@rentaplace.com / 123
 
 ---
 **RentAPlace 2026** - All Rights Reserved.

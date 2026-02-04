@@ -25,42 +25,45 @@ public class FavoriteController {
     @Autowired
     private MemberService memberService;
 
-        @PostMapping("/{propertyId}")
-        public ResponseEntity<String> addFavorite(@PathVariable long propertyId, Principal principal) {
-            favoriteService.addFavorite(propertyId, memberService.findByEmail(principal.getName()).getId());
-            return ResponseEntity.ok("Favorite added");
-        }
+    @PostMapping("/{propertyId}")
+    public ResponseEntity<String> addFavorite(@PathVariable long propertyId, Principal principal) {
+        favoriteService.addFavorite(propertyId, memberService.findByEmail(principal.getName()).getId());
+        return ResponseEntity.ok("Favorite added");
+    }
 
-        @DeleteMapping("/{propertyId}")
-        public void removeFavorite(@PathVariable long propertyId , Principal principal) {
-            favoriteService.removeFavorite(propertyId, memberService.findByEmail(principal.getName()).getId());
-        }
+    @DeleteMapping("/{propertyId}")
+    public void removeFavorite(@PathVariable long propertyId, Principal principal) {
+        favoriteService.removeFavorite(propertyId, memberService.findByEmail(principal.getName()).getId());
+    }
 
-        @PostMapping("/isFavorite")
-        public boolean isFavorite(long propertyId) {
-            return favoriteService.isFavorite(propertyId);
-        }
+    @PostMapping("/isFavorite")
+    public boolean isFavorite(long propertyId, Principal principal) {
+        if (principal == null)
+            return false;
+        return favoriteService.isFavorite(propertyId, memberService.findByEmail(principal.getName()).getId());
+    }
 
-        @PostMapping("/getFavoriteByMemberId")
-        public void getFavoriteByMemberId(long memberId) {
-            favoriteService.getFavoriteByMemberId(memberId);
-        }
+    @PostMapping("/getFavoriteByMemberId")
+    public void getFavoriteByMemberId(long memberId) {
+        favoriteService.getFavoriteByMemberId(memberId);
+    }
 
-        @PostMapping("/getFavoritePropertyId")
+    @PostMapping("/getFavoritePropertyId")
 
-        public void getFavoritePropertyId(long propertyId) {
-            favoriteService.getFavoritePropertyId(propertyId);
-        }
-        @GetMapping
-        public List<PropertyResponse> listFavoritesByMemberId( Principal principal) {
-            Member member = memberService.findByEmail(principal.getName());
-            List<Property> property = favoriteService.findFavoritesByMemberId(member.getId());
-            return Util.mapList(property, PropertyResponse.class);
-        }
+    public void getFavoritePropertyId(long propertyId) {
+        favoriteService.getFavoritePropertyId(propertyId);
+    }
 
-        // @PostMapping("/unFavorite")
-        // public void unFavorite(long favoriteId) {
-        //     favoriteService.unFavorite(favoriteId);
-        // }
-    
+    @GetMapping
+    public List<PropertyResponse> listFavoritesByMemberId(Principal principal) {
+        Member member = memberService.findByEmail(principal.getName());
+        List<Property> property = favoriteService.findFavoritesByMemberId(member.getId());
+        return Util.mapList(property, PropertyResponse.class);
+    }
+
+    // @PostMapping("/unFavorite")
+    // public void unFavorite(long favoriteId) {
+    // favoriteService.unFavorite(favoriteId);
+    // }
+
 }

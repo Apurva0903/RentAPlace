@@ -31,16 +31,22 @@ public class VerifyJwtServiceImpl implements VerifyJwtService {
                     .setSigningKey(secret).parseClaimsJws(jwtToken);
 
             var body = jwt.getBody();
-            var subject = TokenType.valueOf(body.get("subject").toString());
+            Object subjectObj = body.get("subject");
+            TokenType subject = TokenType.ACCESS_TOKEN;
+            if (subjectObj != null) {
+                try {
+                    subject = TokenType.valueOf(subjectObj.toString());
+                } catch (IllegalArgumentException e) {
+                    // Ignore and use default
+                }
+            }
             var email = String.valueOf(body.get("email"));
-            var roles =
-                    ((List<Map>) body.get("roles"))
-                            .stream()
-                                    .map(
-                                            m ->
-                                                    new SimpleGrantedAuthority(
-                                                            String.valueOf(m.get("role"))))
-                                    .toList();
+            var roles = ((List<Map>) body.get("roles"))
+                    .stream()
+                    .map(
+                            m -> new SimpleGrantedAuthority(
+                                    String.valueOf(m.get("role"))))
+                    .toList();
 
             return JwtInfo.builder().subject(subject).email(email).roles(roles).build();
 

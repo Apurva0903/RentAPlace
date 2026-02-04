@@ -25,29 +25,42 @@ const Login = ({ show, handleClose }) => {
   const dispatch = useDispatch();
 
   const loginMutation = useMutation(async (data) => {
-    fetch(apiBaseUrl + "auth/token", {
-      method: "POST",
-      body: JSON.stringify(data),
-      headers: {
-        "Content-Type": "application/json",
-      },
-    })
-      .then((res) => res.json())
-      .then((res) => {
-        const { accessToken, refreshToken } = res;
-        dispatch(
-          login({
-            accessToken: accessToken,
-            refreshToken: refreshToken,
-          })
-        );
-        const user = jwtDecode(accessToken);
-        dispatch(setUser(user));
-        localStorage.setItem("user", JSON.stringify(user));
-        localStorage.setItem(accessTokenKey, accessToken);
-        localStorage.setItem(refreshTokenKey, refreshToken);
-        handleClose();
+    try {
+      const response = await fetch(apiBaseUrl + "auth/token", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(data),
       });
+
+      if (!response.ok) {
+        throw new Error("Invalid email or password");
+      }
+
+      const res = await response.json();
+      const { accessToken, refreshToken } = res;
+
+      if (!accessToken) {
+        throw new Error("No access token received");
+      }
+
+      dispatch(
+        login({
+          accessToken: accessToken,
+          refreshToken: refreshToken,
+        })
+      );
+
+      const user = jwtDecode(accessToken);
+      dispatch(setUser(user));
+
+      localStorage.setItem("user", JSON.stringify(user));
+      localStorage.setItem(accessTokenKey, accessToken);
+      localStorage.setItem(refreshTokenKey, refreshToken);
+      handleClose();
+    } catch (error) {
+      console.error("Login failed:", error);
+      alert(error.message); // Simple alert for now, can be upgraded to Toast
+    }
   });
 
   const onSubmit = (data) => {
@@ -77,12 +90,12 @@ const Login = ({ show, handleClose }) => {
               </Form.Text>
             </Form.Group>
             <div className="d-flex justify-content-between align-items-center mb-3">
-              <Form.Check type="checkbox" label="Remember me" /> 
+              <Form.Check type="checkbox" label="Remember me" />
               <Form.Label>
                 <Link to="/forgot-password" onClick={handleClose}>
-                Forgot password?
+                  Forgot password?
                 </Link>
-                </Form.Label>
+              </Form.Label>
             </div>
             <Button variant="primary" type="submit" style={{ width: "100%" }}>
               Login

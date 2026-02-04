@@ -31,6 +31,7 @@ public class SecurityConfig {
         private static final String[] STATIC_RESOURCES = {
                         "/images/**",
                         "/js/**",
+                        "/static/**",
                         "/webjars/**",
                         "/swagger-resources/",
                         "/swagger-ui/**",
@@ -54,11 +55,12 @@ public class SecurityConfig {
                                                                 }))
                                 .authorizeHttpRequests(
                                                 authorize -> {
-                                                        String contextPath = "**/api/v1";
+                                                        String contextPath = "/api/v1";
                                                         authorize
                                                                         .requestMatchers(
                                                                                         contextPath + "/auth/**",
-                                                                                        contextPath + "/payment/**")
+                                                                                        contextPath + "/payment/**",
+                                                                                        contextPath + "/payment")
                                                                         .permitAll()
 
                                                                         .requestMatchers(HttpMethod.GET,
@@ -68,13 +70,22 @@ public class SecurityConfig {
                                                                         .permitAll()
 
                                                                         .requestMatchers(contextPath
-                                                                                        + "/auth/token/refresh")
+                                                                                        + "/token/refresh")
                                                                         .authenticated()
-                                                                        .requestMatchers(contextPath + "/admins/**")
+                                                                        .requestMatchers(contextPath + "/admins/**",
+                                                                                        contextPath + "/admins")
                                                                         .hasAuthority("Admin")
-                                                                        .requestMatchers(contextPath + "/owners/**")
+                                                                        .requestMatchers(contextPath + "/owners/**",
+                                                                                        contextPath + "/owners")
                                                                         .hasAuthority("Owner")
-                                                                        .requestMatchers(contextPath + "/customers/**")
+                                                                        .requestMatchers(contextPath + "/favorites/**",
+                                                                                        contextPath + "/favorites")
+                                                                        .hasAnyAuthority("Customer", "Owner")
+                                                                        .requestMatchers(contextPath + "/offers/**",
+                                                                                        contextPath + "/offers")
+                                                                        .authenticated()
+                                                                        .requestMatchers(contextPath + "/customers/**",
+                                                                                        contextPath + "/customers")
                                                                         .hasAuthority("Customer")
                                                                         .anyRequest()
                                                                         .authenticated();

@@ -21,6 +21,10 @@ import Contact from "../pages/Contact";
 import About from "../pages/About";
 import PrivacyPolicy from "../pages/PrivacyPolicy";
 import UpdateProperty from "../pages/UpdateProperty";
+import RegisterCustomer from "../pages/RegisterCustomer";
+import RegisterOwner from "../pages/RegisterOwner";
+import PaymentSuccess from "../pages/PaymentSuccess";
+import OwnerPaymentSuccess from "../pages/OwnerPaymentSuccess";
 const Router = () => {
   return (
     <Routes>
@@ -39,6 +43,10 @@ const Router = () => {
         <Route path="contact" element={< Contact />} />
         <Route path="about" element={< About />} />
         <Route path="privacy-policy" element={<PrivacyPolicy />} />
+        <Route path="register/customer" element={<RegisterCustomer />} />
+        <Route path="register/owner" element={<RegisterOwner />} />
+        <Route path="payment/success" element={<PaymentSuccess />} />
+        <Route path="owner/payment/success" element={<OwnerPaymentSuccess />} />
       </Route>
       <Route path="admin" element={<AdminLayout />}>
         <Route path="dashboard" element={<Dashboard />} />
